@@ -1,0 +1,88 @@
+{% extends "TVChefBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - {{ recipe.name }}
+{% endblock %}
+
+{% block chef_body %}
+    <section class="recipe-single">
+        <div class="container">
+            <h2>{{ recipe.name }}</h2>
+            <img class="img-recipe-single" src="{% if recipe.image.webPath is defined %}{{ asset(recipe.image.webPath) }}{%else%}{{ asset('chef/images/default.jpg') }}{%endif%}" alt="{% if recipe.image.alt is defined %}{{ recipe.image.alt }}{%else%}Default{%endif%}">
+            <div class="infos">
+                <p class="score">Note: 
+                    {% for i in 1..recipe.note %}
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                    {% endfor %}
+                </p>
+                <div class="level-single">
+                    <p>Difficulté: </p>
+                    {% for i in 1..recipe.level.id %}
+                        <img src="{{ asset('chef/images/level2.png') }}" alt="level">
+                    {% endfor %}
+                </div>
+                <p>Posté par: Arthur24</p>
+            </div>
+            <div class="responsive-clear"></div>
+            <div class="guide">
+                <h3 class="title-box">Guide de préparation</h3>
+                <div class="content">
+                    <div class="content-1-2">
+                        <p class="first-p"><i class="fa fa-users" aria-hidden="true"></i> Nbr personne: {{recipe.nbOfPers}}</p>
+                        <p class="last-p"><i class="fa fa-free-code-camp" aria-hidden="true"></i> Temps de cuisson: {{recipe.cookingTime}} min</p>
+                    </div>
+                    <div class="content-1-2 last">
+                        <p class="first-p"><i class="fa fa-clock-o" aria-hidden="true"></i> Temps de préparation: {{recipe.preparationTime}} min</p>
+                        <p class="last-p"><i class="fa fa-pause-circle-o" aria-hidden="true"></i> Temps de repos: {{recipe.timeout}} min</p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="buttons">
+                <a class="btn" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Noter</a>
+                <a class="btn big btn-right" href="#"><i class="fa fa-book" aria-hidden="true"></i> Ajouter au carnet</a>
+                <a class="btn big" href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Liste de course</a>
+                <a class="btn btn-right last" href="#"><i class="fa fa-print" aria-hidden="true"></i> Imprimer</a>
+            </div>
+            <div class="clearfix"></div>
+
+            <h2>Ingrédients: </h2>
+
+            <aside class="timers-box">
+                <h3 class="title-box">Minuteurs:</h3>
+                <div class="timers">
+                    <i class="fa fa-play-circle btn-timer paused" aria-hidden="true"></i>	
+                    <p id="timer1" class="timer first-p"> 00:00:20 </p>
+                    <i class="fa fa-play-circle btn-timer paused" aria-hidden="true"></i>
+                    <p class="timer last-p"> 00:02:00 </p>
+                </div>
+            </aside>
+
+            <div class="ingredients">
+
+                {% for ingredient in recipe.ingredients %}
+                    {% if loop.index==1 or loop.index%6==0 %}<ul>{% endif %}
+                        <li>- {{ ingredient.quantity }} {{ ingredient.name }}</li>
+                    {% if loop.index == 5 or loop.index%5==0 or loop.last%}</ul>{% endif %}
+                {% endfor %}
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="steps">
+                
+                {% for step in recipe.steps %}
+                    <div class="step">
+                        <h4>{{ step.name }}</h4>
+                        {% if step.image.webPath is defined %}
+                            <img class="img-step" src="{{ asset(step.image.webPath) }}" alt="{{ step.image.alt }}">
+                        {% endif %}
+                        <p>{{ step.content }}</p>
+                        {% if step.video is defined %}<div class="clearfix"></div> <iframe src="https://www.youtube.com/embed/q8_IQlbLygA" allowfullscreen></iframe> {% endif %}
+                    </div>
+                    <div class="clearfix"></div>
+                {% endfor %}
+                    
+            </div>
+        </div>
+    </section>
+{% endblock %}

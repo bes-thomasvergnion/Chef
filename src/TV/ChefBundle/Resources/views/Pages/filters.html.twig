@@ -1,0 +1,25 @@
+{{ form_start(form, {'attr': {'class': 'filters'}}) }}
+
+    {{ form_errors(form) }}
+
+
+        <div class="filter">
+        {{ form_label(form.type, "Type:", {'label_attr': {'class': ''}}) }}
+        {{ form_widget(form.type, {'attr': {'class': ''}}) }}
+        </div>
+        
+        <div class="filter">
+        {{ form_label(form.category, "Catégory:", {'label_attr': {'class': ''}}) }}
+        {{ form_widget(form.category, {'attr': {'class': ''}}) }}
+        </div>
+        
+        <div class="filter">
+        {{ form_label(form.locality, "Localité:", {'label_attr': {'class': ''}}) }}
+        {{ form_widget(form.locality, {'attr': {'class': ''}}) }}
+        </div>
+        
+    {{ form_widget(form.save, { 'label': 'Appliquer filtres' }) }}
+
+{{ form_end(form) }}
+
+<div class="clearfix"></div>

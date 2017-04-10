@@ -1,0 +1,115 @@
+{% extends "TVChefBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Ajouter recette
+{% endblock %}
+
+{% block chef_body %}
+    <section  class="recipe-single form">
+        <div class="container">
+            <h2 class="center">Ajouter une recette</h2>
+
+                {{ form_start(form, {'attr': {'class': 'form'}}) }}
+
+                    {# Les erreurs générales du formulaire. #}
+                    {{ form_errors(form) }}
+
+                    <div class="error">
+                        {{ form_errors(form) }}
+                    </div>
+
+                    <div class="form-name">
+                        {{ form_label(form.name, "Nom de la recette:", {'label_attr': {'class': ''}}) }}
+                        {{ form_widget(form.name, {'attr': {'class': ''}}) }}
+                    </div>
+
+                    <img class="img-recipe-single" src="{{ asset('chef/images/default.jpg') }}" alt="default">
+                    
+                    <div class="infos">
+                        <ul class="labels">
+                            <li>{{ form_label(form.level, "Difficulté: ", {'label_attr': {'class': ''}}) }}</li>
+
+                            <li>{{ form_label(form.type, "Type: ", {'label_attr': {'class': ''}}) }}</li>
+
+                            <li>{{ form_label(form.category, "Catégorie: ", {'label_attr': {'class': ''}}) }}</li>
+
+                            <li>{{ form_label(form.locality, "Localité: ", {'label_attr': {'class': ''}}) }}</li>
+                        </ul>
+                        <ul>
+                            <li>{{ form_widget(form.level, {'attr': {'class': ''}}) }}</li>
+
+                            <li>{{ form_widget(form.type, {'attr': {'class': ''}}) }}</li>
+
+                            <li>{{ form_widget(form.category, {'attr': {'class': ''}}) }}</li>
+
+                            <li>{{ form_widget(form.locality, {'attr': {'class': ''}}) }}</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="responsive-clear"></div>
+                    <div class="guide">
+                        <h3 class="title-box">Guide de préparation</h3>
+                        <div class="content">
+                            <div class="content-1-2">
+                                <p>
+                                    <i class="fa fa-users" aria-hidden="true"></i>
+                                    {{ form_label(form.nbOfPers, "Nbr de personnes:", {'label_attr': {'class': ''}}) }}
+                                    {{ form_widget(form.nbOfPers, {'attr': {'class': ''}}) }}
+                                </p>
+                                <p>
+                                    <i class="fa fa-free-code-camp" aria-hidden="true"></i>
+                                    {{ form_label(form.cookingTime, "Temps de cuisson:", {'label_attr': {'class': ''}}) }}
+                                    {{ form_widget(form.cookingTime, {'attr': {'class': ''}}) }}
+                                    min
+                                </p>
+                            </div>
+                            <div class="content-1-2 last">
+                                <p>
+                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                    {{ form_label(form.preparationTime, "Temps de préparation:", {'label_attr': {'class': ''}}) }}
+                                    {{ form_widget(form.preparationTime, {'attr': {'class': ''}}) }}
+                                    min
+                                </p>
+                                <p>
+                                    <i class="fa fa-pause-circle-o" aria-hidden="true"></i>
+                                    {{ form_label(form.timeout, "Temps de repos:", {'label_attr': {'class': ''}}) }}
+                                    {{ form_widget(form.timeout, {'attr': {'class': ''}}) }}
+                                    min
+                                </p>
+                                
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>                     
+                    
+                    <div class="clearfix"></div>
+                    
+                    {{ form_widget(form.image, {'attr': {'class': 'upload-img'}}) }} 
+
+                    <h2>Ingrédients: </h2>
+
+                    <div class="ingredients">
+                        
+                        {{ form_widget(form.ingredients, {'attr': {'class': 'ingredients-form'}}) }}
+                       
+                        <a href="#" id="add_ingredient" class="btn btn-default">Ajouter un ingrédient</a>
+                        <div class="clearfix"></div>
+                    </div>
+                    
+                    <h2>Etapes: </h2>
+                    <div class="steps">
+                        
+                        {{ form_widget(form.steps, {'attr': {'class': 'step-form'}}) }}
+                       
+                        <a href="#" id="add_step" class="btn btn-default">Ajouter une étape</a>
+                    </div>
+
+                    {{ form_widget(form.save, { 'label': 'Ajouter recette' }) }}
+                {{ form_end(form) }}
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('chef/js/form.js') }}" type="text/javascript"></script>
+{% endblock %}

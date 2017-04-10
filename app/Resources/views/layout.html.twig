@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="keywords" content="cuisine, recette, santé, végétalien, local, saison" />
+        <meta name="description" content="Chef @ Home est votre site vous permettant d'apprendre à cuisiner tous les types de recettes" />
+        <title>{% block title %}Chef @ Home{% endblock %}</title>
+        
+        <link href="{{ asset('chef/css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
+        <link href="{{ asset('chef/css/responsive.css') }}" rel="stylesheet" type="text/css" media="all" />
+        <link href="{{ asset('chef/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" media="all" />
+        <link href="https://fonts.googleapis.com/css?family=Dancing+Script:400,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+        
+        {% block stylesheets %}{% endblock %}
+        
+    </head>
+
+    <body>
+        <header>
+            <div class="container">
+                <div class="connexion">
+                    <a href="#"><i class="fa fa-user" aria-hidden="true"></i>Arthur24</a>
+                </div>
+                <div class="responsive-btn">
+                    <i class="fa fa-bars hamburger-icon" aria-hidden="true"></i>
+                    <i class="fa fa-times exit-menu" aria-hidden="true"></i>
+                </div>
+
+                <img id="logo" src="{{ asset('chef/images/logo.png') }}" alt="Logo" />
+                <h1>Chef <span>@</span> Home</h1>
+
+            </div>
+            <div class="clearfix"></div>
+        </header>
+        
+        <nav>
+            <div class="container">
+                <ul class="menu">
+                    <li><a href="{{ path('tv_chef_homepage') }}">Accueil</a></li>
+                    <li id="recipe-menu"><a href="{{ path('tv_chef_recipe_index') }}">Recettes <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                        <div class="submenu">
+                            <div class="container">
+                                <ul>
+                                    <li><a href="#">Les bases</a></li>
+                                    <li><a href="#">Appéritifs</a></li>
+                                    <li><a href="#">Cocktails</a></li>
+                                </ul>
+                                <ul>
+                                    <li><a href="#">Entrées</a></li>
+                                    <li><a href="#">Plats</a></li>
+                                    <li><a href="#">Desserts</a></li>
+                                </ul>
+                                <ul>
+                                    <li><a href="#">Recettes avec ingrédients locaux et de saison</a></li>
+                                    <li><a href="#">Recettes végétariennes</a></li>
+                                    <li><a href="#">Recettes végétaliennes</a></li>
+                                </ul>
+                                <ul class="last">
+                                    <li><a href="#">Recettes sans gluten</a></li>
+                                    <li><a href="#">Recettes régionales</a></li>
+                                    <li><a href="#">Recettes du monde</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li id="vege"><a href="#">Recettes végétariennes</a></li>
+                    <li><a href="#">Recettes végétaliennes</a></li>
+                    <li class="last"><a href="cuistots.html">Les Cuistots</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <nav class="responsive-menu">
+            <ul>
+                <li><a href="index.html"><i class="fa fa-home" aria-hidden="true"></i> Accueil</a></li>
+                <li><a href="recettes.html"><i class="fa fa-file-text" aria-hidden="true"></i> Recettes</a></li>
+                <li><a href="cuistots.html"><i class="fa fa-users" aria-hidden="true"></i> Les Cuistots</a></li>
+                <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i> Arthur24</a></li>
+            </ul>
+        </nav>
+
+        {% block body %}{% endblock %}
+
+        <footer>
+            <div class="container">
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="recettes.html">Recettes</a></li>
+                    <li><a href="recettes_vege.html">Recettes végétariennes</a></li>
+                    <li><a href="recettes_vegan.html">Recettes végétaliennes</a></li>
+                    <li><a href="cuitots">Les Cuistots</a></li>
+                </ul>
+                <ul>
+                    <li><a href="#">Les bases</a></li>
+                    <li><a href="#">Appéritifs</a></li>
+                    <li><a href="#">Entrées</a></li>
+                    <li><a href="#">Plats</a></li>
+                    <li><a href="#">Desserts</a></li>
+                    <li><a href="#">Cocktails</a></li>
+                </ul>
+                <ul class="last">
+                    <li><a href="#">Recettes avec ingrédients locaux et de saison</a></li>
+                    <li><a href="#">Recettes sans gluten</a></li>
+                    <li><a href="#">Recettes régionales</a></li>
+                    <li><a href="#">Recettes du monde</a></li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+        </footer>
+        
+        <script src="{{ asset('chef/js/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('chef/js/responsive-menu.js') }}" type="text/javascript"></script>
+        
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

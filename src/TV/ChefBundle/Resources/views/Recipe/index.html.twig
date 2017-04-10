@@ -1,0 +1,47 @@
+{% extends "TVChefBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Recettes
+{% endblock %}
+
+{% block chef_body %}
+    <section class="no-padding">
+        <h2 class="hidden">Filtres</h2>
+        <div class="container">
+            {{ render(controller("TVChefBundle:Filter:index")) }}
+        </div>
+        <div class="clearfix"></div>
+    </section>
+
+    <section>
+        <div class="container" id="recipes-container">
+            <div class="recipes">
+                {% include("TVChefBundle:Recipe:list.html.twig") %}
+            </div>
+            <div class="clearfix"></div>
+            
+            <div class="pagination-container">
+                <div class="fixer-container">
+                    <ul class="pagination">
+                        {% for p in range(1, nbPages) %}
+                            <li{% if p == page %} class="active"{% endif %}>
+                                <a href="{{ path('tv_chef_recipe_index', {'page': p}) }}">{{ p }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+                    
+            <div class="clearfix"></div>
+        </div>
+        
+    </section>
+                        <div class="clearfix"></div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        var url = "{{ asset('chef/images/ajax-loader.gif') }}";
+    </script>
+    <script src="{{ asset('chef/js/filters.js') }}"></script>
+{% endblock %}

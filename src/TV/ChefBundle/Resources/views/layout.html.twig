@@ -1,0 +1,17 @@
+{% extends "::layout.html.twig" %}
+
+{% block body %}
+    <section class="no-padding">
+        <div class="search-box">
+            <h2 class="title-search">Trouver une recette:</h2>
+                <form action="search.php" class="search-form">
+                    <input class="search" type="text" placeholder="Rechercher"/>
+                <button type="submit" class="search-btn"><i class="fa fa-search" aria-hidden="true"></i></button>  
+            </form>
+        </div>
+    </section>
+    
+    {% block chef_body %}
+    {% endblock %}
+
+{% endblock %}

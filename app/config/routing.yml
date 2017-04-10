@@ -1,0 +1,4 @@
+tv_chef:
+    resource: "@TVChefBundle/Resources/config/routing.yml"
+    prefix:   /
+    

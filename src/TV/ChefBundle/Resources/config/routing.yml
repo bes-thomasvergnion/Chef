@@ -1,0 +1,44 @@
+tv_chef_homepage:
+    path:     /
+    defaults: 
+        _controller: TVChefBundle:Home:index
+        
+tv_chef_recipe_index:
+    path:    /recipe/{page}
+    defaults: 
+        _controller: TVChefBundle:Recipe:index
+        page: 1
+    requirements:
+        page: \d*
+        
+tv_chef_recipe_view:
+    path:    /recipe/view/{id}
+    defaults: 
+        _controller: TVChefBundle:Recipe:view
+    requirements:
+        id: \d+
+        
+tv_chef_recipe_add:
+    path:    /recipe/add
+    defaults: 
+        _controller: TVChefBundle:Recipe:add
+        
+tv_chef_recipe_edit:
+    path:    /recipe/edit
+    defaults: 
+        _controller: TVChefBundle:Recipe:edit
+        
+tv_chef_recipe_delete:
+    path:    /recipe/delete
+    defaults: 
+        _controller: TVChefBundle:Recipe:delete
+        
+tv_chef_filter_select:
+    path:      /recipes/select/{page}
+    defaults:
+        _controller: TVChefBundle:Filter:select
+        page:  1
+    requirements:
+        _method: POST
+        page: \d+
+        

@@ -1,0 +1,54 @@
+<?php
+
+namespace TV\ChefBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Search
+ *
+ * @ORM\Table(name="search")
+ * @ORM\Entity(repositoryClass="TV\ChefBundle\Repository\SearchRepository")
+ */
+class Search
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="TV\ChefBundle\Entity\Type", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $type;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="TV\ChefBundle\Entity\Category", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $category;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="TV\ChefBundle\Entity\Locality", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $locality;
+    
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+}
+

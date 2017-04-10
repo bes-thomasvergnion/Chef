@@ -1,0 +1,530 @@
+/*********************************************************************************/
+/* Desktop                                                                       */
+/*********************************************************************************/
+@media (max-width: 1300px) {
+	/* GENERAL */
+	.container{
+		width: 900px;
+	}
+
+	/* MENU */
+	nav .menu li{
+	    margin-right: 46px;
+	}
+	.submenu ul{
+	    margin-right: 97px;
+	}
+
+
+	/* CONTENU GENERAL */
+	.polaroid{
+	    width: 250px;
+	    margin-right: 45px;
+	}
+	section .recipe .picture{
+	    width: 250px;
+	}
+	.filter{
+	    width: 300px;
+	}
+
+	/* RECETTE */
+	.img-recipe-single{
+		width: 270px;
+		margin-bottom: 10px;
+	}
+	.infos{
+		width: 280px;
+
+	}
+	.guide{
+		width: 280px;
+	}
+	.content-1-2{
+	    width: 100%;
+	    float: none;
+	}
+	.content-1-2.last .first-p{
+		margin-top: 16px;
+	}
+	.buttons{
+		width: 100%;
+		margin-bottom: 30px;
+	}
+	.buttons .btn {
+	    margin-right: 42px;
+	}
+	.steps{
+	    width: 700px;
+	}
+	.timers-box{
+	    width: 200px;
+	}
+	.timers{
+	    padding: 15px 32px;
+	}
+
+	/* FOOTER */
+	footer ul{
+		margin-right: 140px;
+	}
+}
+
+/*********************************************************************************/
+/* Tablet                                                                        */
+/*********************************************************************************/
+@media (max-width: 1000px) {
+	/* GENERAL */
+	body{}
+	.container{
+		width: 730px;
+	}
+	section{
+		padding: 50px 0;
+		font-size: 0.9em;
+	}
+
+	/* MENU */
+	nav .menu li{
+	    margin-right: 77px;
+	}
+	#vege{
+		display: none;
+	}
+	.submenu ul{
+	    margin-right: 40px;
+	}
+
+	/* CONTENU GENERAL */
+	.polaroid{
+	    width: 200px;
+	    margin-right: 35px;
+	}
+	.polaroid h3{
+		font-size: 16px;
+	}
+	section .recipe .picture{
+	    width: 200px;
+	}
+	.recipe .absolute{
+	    top: 12px;
+	}
+	.recipe .note{
+	    right: 12px;
+	    font-size: 12px;
+	}
+	.recipe .level img{
+	    width: 18px;
+	}
+	h2.title-search{
+		display: none;
+	}
+	form.search-form {
+    	width: 80%;
+    }
+    .filter{
+	    width: 243px;
+	}
+
+	/* RECETTE */
+	.img-recipe-single{
+		width: 240px;
+	}
+	.infos{
+		width: 160px;
+		font-size: 18px;
+	}
+	.level-single img {
+	    margin-top: -1px;
+	}
+	.guide{
+		width: 260px;
+	}
+	.buttons .btn {
+	    margin-right: 32px;
+	    font-size: 12px;
+	    padding: 0 20px;
+	}
+	.steps{
+	    width: 530px;
+	}
+	.timers{
+	    font-size: 18px;
+	}
+	.timers i {
+	    font-size: 28px;
+	}
+
+	/* FOOTER */
+	footer ul{
+		margin-right: 55px;
+	}
+}
+
+/*********************************************************************************/
+/* Phablet                                                                       */
+/*********************************************************************************/
+@media (max-width: 750px) {
+	/* GENERAL */
+	.container{
+		width: 540px;
+	}
+	section{
+		padding: 50px 0;
+	}
+
+	/* HEADER */
+	#logo{width: 40px;}
+	h1{font-size: 2.4em;}
+	.connexion{display: none;}
+	.responsive-btn i{
+		float: right;
+		font-size: 50px;
+		color: #fff;
+		cursor: pointer;
+	}
+	.responsive-btn .hamburger-icon{display: block;}
+
+	/* MENU */
+	nav{
+		display: none;
+	}
+	.responsive-menu{
+		position: absolute;
+		top: 77px;
+		width: 100%;
+		background: #fff;
+		z-index: 2;
+	}
+	.responsive-menu ul{
+		list-style: none;
+		text-align: center;
+		padding: 0;
+		margin: 0;
+	}
+	.responsive-menu li{
+		width: 100%;
+		border-bottom: 1px solid #292727;
+	}
+	.responsive-menu li a{
+		color: #292727;
+		font-size: 26px;
+		padding: 25px 0;
+		display: block;
+		width: 100%;
+	}
+	.responsive-menu li a i{
+		margin-right: 10px;
+	}
+
+	/* CONTENU GENERAL */
+	.polaroid{
+		float: none;
+	    width: 400px;
+	    margin: 0 auto 40px auto;
+	}
+	section .recipe.last{
+		margin: 0 auto 40px auto;
+	}
+	.polaroid h3{font-size: 26px;}
+	section .recipe .picture{
+	    width: 400px;
+	}
+	.recipe .absolute{
+	    top: 15px;
+	}
+	.recipe .note{
+	    right: 15px;
+	    font-size: 20px;
+	}
+	.recipe .level img{
+	    width: 30px;
+	}
+	#slider .search-box.home{
+		position: relative;
+		background: #fff;
+		z-index: 0;
+	}
+	form.search-form {
+		width: 540px;
+    	border: 1px solid #292727;
+    }
+    .filter{
+	    width: 100%;
+	    margin-bottom: 10px;
+	}
+
+	/* RECETTE */
+	.img-recipe-single{
+		width: 200px;
+	}
+	.infos{
+		margin-top: 11px;
+	}
+	.responsive-clear{
+		clear: both;
+	}
+	.guide{
+		width: 540px;
+		float: none;
+		margin-top: 20px;
+	}
+	.content-1-2{
+	    width: 210px;
+	    float: left;
+ 		margin-right: 90px;
+	}
+	.content-1-2.last{margin-right: 0;}
+	.content-1-2.last .first-p{
+		margin-top: 0px;
+	}
+	.buttons .btn {
+	    margin-right: 6px;
+	    font-size: 11px;
+	    padding: 0 10px;
+	}
+	.steps{
+	    width: 540px;
+	}
+	.timers-box{
+	    position: fixed;
+	    bottom: 0;
+	    width: 100%;
+	    background: #f1f1f1;
+	}
+	.timers{
+		width: 115px;
+		margin: 0 auto;
+	}
+	
+
+	/* FOOTER */
+	footer{
+		display: none;
+	}
+}
+
+/*********************************************************************************/
+/* Mobile                                                                        */
+/*********************************************************************************/
+@media (max-width: 550px) {
+	/* GENERAL */
+	.container{
+		width: 400px;
+	}
+	section.no-top{padding-top:20px;}
+	h2{font-size: 18px;}
+
+	/* CONTENU GENERAL */
+	.polaroid{
+		float: none;
+	    width: 300px;
+	    margin: 0 auto 40px auto;
+	}
+	.polaroid h3{font-size: 22px;}
+	section .recipe .picture{
+	    width: 300px;
+	}
+	form.search-form {
+		width: 400px;
+    }
+    #slide{display: none;}
+
+    /* RECETTE */
+    .recipe-single{
+    	padding-bottom: 200px;
+    }
+    .recipe-single h2{
+    	font-size: 1.8em;
+    }
+	.infos{
+		margin-right: 0px;
+	}
+	.guide{
+		width: 400px;
+		font-size: 13px;
+	}
+	.content-1-2{
+	    width: 185px;
+	    float: left;
+ 		margin-right: 0px;
+	}
+	.content-1-2.last{margin-right: 0;}
+	.content-1-2.last .first-p{
+		margin-top: 0px;
+	}
+	.buttons .btn {
+	    margin-right: 42px;
+	    font-size: 12px;
+	    padding: 0 15px;
+	    width: 120px;
+	    margin-bottom: 10px;
+	}
+	.buttons .big{
+	    width: 170px;
+	}
+	.buttons .btn-right{
+		margin-right: 0px;
+	}
+	.ingredients ul{
+		margin-bottom: 0;
+	}
+	.steps{
+	    width: 400px;
+	}
+	.timers-box{
+	    position: fixed;
+	    bottom: 0;
+	    width: 100%;
+	    background: #f1f1f1;
+	}
+	.timers{
+		width: 115px;
+		margin: 0 auto;
+	}
+}
+
+/*********************************************************************************/
+/* Small mobile                                                                  */
+/*********************************************************************************/
+@media (max-width: 400px) {
+	/* GENERAL */
+	.container{
+		width: 320px;
+	}
+
+	/* HEADER */
+	header{padding: 10px;}
+	#logo{
+		width: 35px;
+		margin-right: 10px;
+	}
+	h1{
+		font-size: 1.8em;
+		padding-top: 5px;
+	}
+	.responsive-btn i{font-size: 40px;}
+
+	/* MENU */
+	.responsive-menu{top: 61px;}
+
+	/* CONTENU GENERAL */
+	hr{width: 200px;}
+	form.search-form {width: 320px;}
+
+	/* RECETTE */
+	.img-recipe-single{width: 120px;}
+	.infos{
+		font-size: 16px;
+		margin-top: 0;
+	}
+	.level-single {
+	    margin: 16px 0;
+	}
+	.level-single img {
+	    margin-top: -4px;
+	}
+	.guide{
+		width: 320px;
+		font-size: 16px;
+	}
+	.content-1-2{
+	    width: 100%;
+	    float: none;
+	}
+	.content-1-2.last .first-p{
+		margin-top: 16px;
+	}
+	.buttons .btn {
+	    float: none;
+	    margin: 0 auto 10px auto;
+	    display: block;
+	}
+	.buttons .btn-right{
+		margin: 0 auto 10px auto;
+	}
+	.buttons .btn.last{
+		margin: 0 auto 10px auto;
+	}
+	.steps{
+	    width: 320px;
+	}
+	.step iframe {
+    	width: 320px;
+    }
+}
+
+/*********************************************************************************/
+/* Small mobile                                                                  */
+/*********************************************************************************/
+@media (max-width: 310px) {
+	/* GENERAL */
+	.container{
+		width: 260px;
+	}
+
+	/* HEADER */
+	h1{
+		font-size: 1.5em;
+		padding-top: 7px;
+	}
+
+	/* MENU */
+
+	/* CONTENU GENERAL */
+	.polaroid{
+	    width: 200px;
+	    margin-bottom: 30px;
+	}
+	.polaroid h3{font-size: 17px;}
+	section .recipe .picture{
+	    width: 200px;
+	}
+	form.search-form {width: 260px;}
+
+	/* RECETTE */
+	.recipe-single h2{
+		font-size: 1.5em;
+	}
+	.img-recipe-single{width: 105px;margin-right: 15px;}
+	.infos{
+		width: 130px;
+		font-size: 14px;
+	}
+	.level-single {
+	    margin: 15px 0;
+	}
+	.level-single img {
+	    margin-top: -4px;
+	}
+	.guide{
+		width: 320px;
+		font-size: 16px;
+	}
+	.content-1-2{
+	    width: 100%;
+	    float: none;
+	}
+	.content-1-2.last .first-p{
+		margin-top: 16px;
+	}
+	.buttons .btn {
+	    float: none;
+	    margin: 0 auto 10px auto;
+	    display: block;
+	}
+	.buttons .btn-right{
+		margin: 0 auto 10px auto;
+	}
+	.buttons .btn.last{
+		margin: 0 auto 10px auto;
+	}
+	.steps{
+	    width: 260px;
+	    text-align: justify;
+	}
+	.img-step{width: 120px;}
+	.step iframe {
+    	width: 260px;
+    }
+}
