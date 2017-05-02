@@ -1,0 +1,186 @@
+/*********************************************************************************/
+/* Reset                                                                         */
+/*********************************************************************************/
+html{font-family:sans-serif;height:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background-color:transparent}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:700}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:1em 40px}hr{box-sizing:content-box;height:0}pre{overflow:auto}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{height:auto}input[type="search"]{-webkit-appearance:textfield;box-sizing:content-box}input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}textarea{overflow:auto}optgroup{font-weight:700}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}
+
+/*********************************************************************************/
+/* General style                                                                 */
+/*********************************************************************************/
+body{
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+    height: 100%;
+}
+/*********************************************************************************/
+/* Header                                                                        */
+/*********************************************************************************/
+header{
+    background-color: #333333;
+    padding:  10px 20px;
+    color: #fff;
+    border-bottom: 1px solid #000;
+    position: fixed;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.connexion{
+    float: right;
+}
+.connexion p{margin: 10px 0;}
+header #logo{
+    width: 40px;
+    float: left;
+    margin-right: 20px;
+}
+header h1{
+    font-family: 'Dancing Script', cursive;
+    font-size: 2em;
+    margin: 0;
+}
+
+/*********************************************************************************/
+/* Menu                                                                          */
+/*********************************************************************************/
+nav{
+    background-color: #333333;
+    padding: 30px 25px;
+    width: 200px;
+    min-height: 100%;
+    float: left;
+    position: fixed;
+    top: 62px;
+}
+nav ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+nav ul li{margin-bottom: 30px;}
+nav ul li a{
+    color: #fff; 
+    text-decoration: none;
+}
+nav ul li a i{
+    margin-right: 5px;
+}
+
+
+
+section{
+    padding: 120px 50px 150px 300px;
+}
+
+
+table
+{
+    border-collapse: collapse;
+    margin-bottom: 40px;
+    width: 100%;
+}
+table th{
+    background-color: #096274;
+    color: #fff;
+    padding: 15px 0;
+    border: 1px solid #1F1E23;
+}
+table td{
+    padding: 15px;
+    border: 1px solid #1F1E23;
+    text-align: center;
+}
+table .picture{
+    width: 80px;
+}
+table .actions{
+    width: 120px;
+}
+table td .btn-amd{
+    width: 100px;
+    padding: 10px;
+    font-size: 14px;
+    margin-right: 0;
+}
+table td .btn-amd.first{
+    margin-bottom: 5px; 
+}
+table .img_profil_admin{
+    width: 50px;
+}
+table .statut{
+    width: 100px;
+    text-align: left;
+    padding-left: 15px;
+}
+table .statut img{
+    width: 15px;
+    margin-right: 10px;
+    float: left;
+    margin-top: 2px;
+}
+
+/* Pagination */
+.pagination-container {
+    float: left;
+    position: relative;
+    left: 50%;
+}
+.fixer-container {
+    float: left;
+    position: relative;
+    left: -50%;
+}
+.pagination {
+    display: inline-block;
+    padding-left: 0;
+    margin: 70px 0 0 0;
+    border-radius: 4px;
+}
+.pagination > li {display: inline;}
+.pagination > li > a,
+.pagination > li > span {
+    position: relative;
+    padding: 6px 12px;
+    float: left;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #337ab7;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+.pagination > li:first-child > a,
+.pagination > li:first-child > span {
+    margin-left: 0;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+.pagination > li:last-child > a,
+.pagination > li:last-child > span {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+.pagination > li > a:hover,
+.pagination > li > span:hover,
+.pagination > li > a:focus,
+.pagination > li > span:focus {
+    z-index: 2;
+    color: #23527c;
+    background-color: #eee;
+    border-color: #ddd;
+}
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+    z-index: 3;
+    color: #fff;
+    cursor: default;
+    background-color: #57CC23;
+    border-color: #57CC23;
+}

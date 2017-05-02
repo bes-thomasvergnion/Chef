@@ -21,7 +21,7 @@
                         <img src="{{ asset('chef/images/level2.png') }}" alt="level">
                     {% endfor %}
                 </div>
-                <p>Posté par: Arthur24</p>
+                <p>Posté par: {{ recipe.author }}</p>
             </div>
             <div class="responsive-clear"></div>
             <div class="guide">
@@ -39,22 +39,30 @@
                 </div>
             </div>
             <div class="buttons">
-                <a class="btn" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Noter</a>
-                <a class="btn big btn-right" href="#"><i class="fa fa-book" aria-hidden="true"></i> Ajouter au carnet</a>
+                {% if currentUser == recipe.author %}
+                    <a class="btn" href="{{ path('tv_chef_recipe_edit', {'id': recipe.id}) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modifer recette</a>
+                {% else %}
+                    <a class="btn" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Noter</a>
+                    <a class="btn big btn-right" href="#"><i class="fa fa-book" aria-hidden="true"></i> Ajouter au carnet</a>
+                {% endif %}
                 <a class="btn big" href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Liste de course</a>
                 <a class="btn btn-right last" href="#"><i class="fa fa-print" aria-hidden="true"></i> Imprimer</a>
             </div>
             <div class="clearfix"></div>
 
             <h2>Ingrédients: </h2>
-
+            
             <aside class="timers-box">
                 <h3 class="title-box">Minuteurs:</h3>
                 <div class="timers">
-                    <i class="fa fa-play-circle btn-timer paused" aria-hidden="true"></i>	
+                    {% for step in recipe.steps %}
+                        <i class="fa fa-play-circle btn-timer paused" aria-hidden="true"></i>	
+                        <p id="timer1" class="timer first-p" data-timer-seconds="{{ step.timer }}"> {{ step.timer }} </p>
+                    {% endfor %}
+                    {#<i class="fa fa-play-circle btn-timer paused" aria-hidden="true"></i>	
                     <p id="timer1" class="timer first-p"> 00:00:20 </p>
                     <i class="fa fa-play-circle btn-timer paused" aria-hidden="true"></i>
-                    <p class="timer last-p"> 00:02:00 </p>
+                    <p class="timer last-p"> 00:02:00 </p>#}
                 </div>
             </aside>
 
@@ -62,27 +70,52 @@
 
                 {% for ingredient in recipe.ingredients %}
                     {% if loop.index==1 or loop.index%6==0 %}<ul>{% endif %}
-                        <li>- {{ ingredient.quantity }} {{ ingredient.name }}</li>
+                        <li>
+                            - {{ ingredient.quantity }}{% if ingredient.typequantity is not null %}{{ ingredient.typequantity.name }}{% endif %} {{ ingredient.name }} 
+                            <a class="btn little blue" href="{{ path('tv_chef_ingredient_edit', {'id': ingredient.id, 'id_recipe': recipe.id}) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                            <a class="btn little red" href="{{ path('tv_chef_ingredient_delete', {'id': ingredient.id, 'id_recipe': recipe.id}) }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                        </li>
                     {% if loop.index == 5 or loop.index%5==0 or loop.last%}</ul>{% endif %}
                 {% endfor %}
 
                 <div class="clearfix"></div>
             </div>
+            {% if currentUser == recipe.author %}
+                <a class="btn bottom" href="{{ path('tv_chef_ingredient_add', {'id': recipe.id}) }}"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter ingrédient</a>
+            {% endif %}
+            
             <div class="steps">
-                
+                <h2>Etapes: </h2>
+                {% set count = 0 %}
                 {% for step in recipe.steps %}
+                    {% set count = count + 1 %}
                     <div class="step">
-                        <h4>{{ step.name }}</h4>
+                        <h4>Etape {{count}} - {{ step.name }} 
+                            <a class="btn little blue" href="{{ path('tv_chef_step_edit', {'id': step.id, 'id_recipe': recipe.id}) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                            <a class="btn little red" href="{{ path('tv_chef_step_delete', {'id': step.id, 'id_recipe': recipe.id}) }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                        </h4>
+                        
                         {% if step.image.webPath is defined %}
                             <img class="img-step" src="{{ asset(step.image.webPath) }}" alt="{{ step.image.alt }}">
                         {% endif %}
+                        {% if step.video is not null %}<div class="clearfix"></div> <iframe src="https://www.youtube.com/embed/q8_IQlbLygA" allowfullscreen></iframe> {% endif %}
                         <p>{{ step.content }}</p>
-                        {% if step.video is defined %}<div class="clearfix"></div> <iframe src="https://www.youtube.com/embed/q8_IQlbLygA" allowfullscreen></iframe> {% endif %}
+                        <div class="clearfix"></div>
                     </div>
                     <div class="clearfix"></div>
                 {% endfor %}
+                
+                {% if currentUser == recipe.author %}
+                    <a class="btn" href="{{ path('tv_chef_step_add', {'id': recipe.id}) }}"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter étape</a>
+                {% endif %}
                     
             </div>
         </div>
     </section>
+               
 {% endblock %}
+
+ {% block javascripts %}
+     <script src="{{ asset('chef/js/timers.js') }}" type="text/javascript"></script>
+ {% endblock %}
+

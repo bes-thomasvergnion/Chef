@@ -1,17 +1,16 @@
 <?php
 
 namespace TV\ChefBundle\Form;
+
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
 
-class SelectType extends AbstractType
+
+class FilterType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -44,11 +43,27 @@ class SelectType extends AbstractType
                         ->orderBy('u.name', 'ASC');
                 },
                 'choice_label' => 'name',
-            ))
-            ->add('save', SubmitType::class, array(
-                'attr' => array('class' => 'save'),
-            ))
-        ;
+            ));
     }
-}
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'TV\ChefBundle\Entity\Filter',
+            'attr'=>['id'=>'myForm']
+        ));
+    }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix()
+    {
+        return 'tv_chefbundle_filter';
+    }
+
+
+}

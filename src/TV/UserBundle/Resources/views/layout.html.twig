@@ -1,0 +1,30 @@
+{% extends "::layout.html.twig" %}
+
+{% block body %}
+    <section class="no-padding">
+        <div class="search-box">
+            <h2 class="title-search">Trouver une recette:</h2>
+                <form action="search.php" class="search-form">
+                    <input class="search" type="text" placeholder="Rechercher"/>
+                <button type="submit" class="search-btn"><i class="fa fa-search" aria-hidden="true"></i></button>  
+            </form>
+        </div>
+    </section>
+    
+    {% for key, messages in app.session.flashbag.all() %}
+        {% for message in messages %}
+            <div class="alert alert-{{ key }}">
+                {{ message|trans({}, 'FOSUserBundle') }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <section>
+        <div class="form-fos">
+            {% block fos_user_content %}
+            {% endblock fos_user_content %}
+            <div class="clearfix"></div>
+        </div>
+    </section>
+
+{% endblock %}

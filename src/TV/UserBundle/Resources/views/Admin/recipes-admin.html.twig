@@ -1,0 +1,47 @@
+{% extends "TVUserBundle::layout-admin.html.twig" %}
+
+{% block body %}
+    <table>
+        <tr>
+            <th>Nom de la recette</th>
+            <th>Image</th>
+            <th>Type</th>
+            <th>Catégorie</th>
+            <th>Localité</th>
+            <th>Auteur</th>
+            <th>Nbr Ingrédients</th>
+            <th>Nbr Etapes</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for recipe in listRecipes %}
+            <tr>
+                <td>{{ recipe.name }}</td>
+                <td><img class="picture" src="{% if recipe.image.webPath is defined %}{{ asset(recipe.image.webPath) }}{%else%}{{ asset('chef/images/default.jpg') }}{%endif%}" alt="{%if recipe.image.alt is defined%}{{ recipe.image.alt }}{%else%}Default{%endif%}" /></td>
+                <td>{% if recipe.type.name is defined %}{{ recipe.type.name }}{% else %}Incomplet{% endif %}</td>
+                <td>{% if recipe.category.name is defined %}{{ recipe.category.name }}{% else %}Incomplet{% endif %}</td>
+                <td>{% if recipe.locality.name is defined %}{{ recipe.locality.name }}{% else %}Incomplet{% endif %}</td>
+                <td>{{ recipe.author }}</td>
+                <td>{{ recipe.ingredients|length }}</td>
+                <td>{{ recipe.steps|length }}</td>
+                <td class="actions">
+                    <a class="btn btn-amd modify first" href="{{ path('tv_chef_recipe_view', {'id': recipe.id}) }}">Voir</a>
+                    <a class="btn btn-amd delete" href="">Supprimer</a>
+                </td>
+
+            </tr>
+        {% endfor %}
+     </table>
+
+     <div class="pagination-container">
+        <div class="fixer-container">
+            <ul class="pagination">
+                {% for p in range(1, nbPages) %}
+                    <li{% if p == page %} class="active"{% endif %}>
+                        <a href="{{ path('tv_admin_recipe_admin', {'page': p}) }}">{{ p }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

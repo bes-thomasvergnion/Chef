@@ -31,7 +31,20 @@ var timer = setInterval(function() {
 	}
 }, 1000);
 
+function launchTimer(seconds){
+    timer = setInterval(function() {
+	if (seconds != 0 && !isPaused){
+		--seconds;
+		console.log(seconds);
+		$('.timer.playing').text(get_elapsed_time_string(seconds));
+	}
+}, 1000);
+}
+
 $('.btn-timer').click(function(e) {
+        var timerLength = $(this).data('timer-seconds');
+        clearInterval(timer);
+        
 	$(this).next('.timer').toggleClass('playing');
 	if ($(this).hasClass("paused")){
 		$(this).removeClass("paused").addClass("played");

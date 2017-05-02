@@ -1,0 +1,46 @@
+{% extends "TVUserBundle::layout-admin.html.twig" %}
+
+{% block body %}
+    <table>
+        <tr>
+            <th>Nom</th>
+            <th>Image</th>
+            <th>Niveau</th>
+            <th>Note</th>
+            <th>Recettes</th>
+            <th>Followers</th>
+            <th>Déscriptif</th>
+            <th>Actions</th>
+        </tr>
+        <a href="../../../../../../../../../../F:/Symfony/src/TV/UserBundle/Resources/views/Admin/adverts.html.twig"></a>
+
+        {% for user in listUsers %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td><img class="picture" src="{% if user.image.webPath is defined %}{{ asset(user.image.webPath) }}{%else%}{{ asset('chef/images/user-default.jpg') }}{%endif%}" alt="{%if user.image.alt is defined%}{{ user.image.alt }}{%else%}Default{%endif%}" /></td>
+                <td>{% if user.level.name is defined %} {{ user.level.name }} {% else %} Incomplet {% endif %}</td>
+                <td><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></td>
+                <td>{{ user.recipes|length }}</td>
+                <td>15</td>
+                <td>{{ user.content|length > 300 ? user.content|slice(0, 300) ~ '...' : user.content  }}</td>
+                <td class="actions">
+                    <a class="btn btn-amd modify first" href="{{ path('tv_user_view', {'id': user.id}) }}">Voir</a>
+                    <a class="btn btn-amd delete" href="">Supprimer</a>
+                </td>
+
+            </tr>
+        {% endfor %}
+     </table>
+
+     <div class="pagination-container">
+        <div class="fixer-container">
+            <ul class="pagination">
+                {% for p in range(1, nbPages) %}
+                    <li{% if p == page %} class="active"{% endif %}>
+                        <a href="{{ path('tv_admin_recipe_admin', {'page': p}) }}">{{ p }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

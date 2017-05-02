@@ -21,7 +21,27 @@
         <header>
             <div class="container">
                 <div class="connexion">
-                    <a href="#"><i class="fa fa-user" aria-hidden="true"></i>Arthur24</a>
+                    <ul>
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <li id="user">
+                                <a id="user_name"  href="#"><i class="fa fa-user" aria-hidden="true"></i> {{ app.user.username }}</a>
+                                <ul class="menu_connexion">
+                                    <li><a href="{{ path('tv_chef_recipe_add') }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Ajouter une recette</a></li>
+                                    <li><a href="{{ path('tv_user_view', {'id': app.user.id}) }}"><i class="fa fa-cog" aria-hidden="true"></i> Profil</a></li>
+                                    <li><a href=""><i class="fa fa-users" aria-hidden="true"></i> Vos Recettes</a></li>
+                                    {% if is_granted('ROLE_ADMIN')%}
+                                        <li><a href="{{ path('tv_admin_index') }}"><i class="fa fa-tachometer" aria-hidden="true"></i> Admin</a></li>
+                                    {% endif %}
+                                    <li class="last"><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-power-off" aria-hidden="true"></i> Déconnexion</a></li>
+                                </ul>
+                            </li>
+
+                        {% else %}
+                            <li class="inline"><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
+                            |
+                            <li class="inline"><a href="{{ path('fos_user_registration_register') }}">Inscription</a></li>
+                        {% endif %}
+
                 </div>
                 <div class="responsive-btn">
                     <i class="fa fa-bars hamburger-icon" aria-hidden="true"></i>
@@ -43,31 +63,31 @@
                         <div class="submenu">
                             <div class="container">
                                 <ul>
-                                    <li><a href="#">Les bases</a></li>
-                                    <li><a href="#">Appéritifs</a></li>
-                                    <li><a href="#">Cocktails</a></li>
+                                    <li><a href="{{ path('tv_chef_recipe_index', {'type': 'Les Bases'}) }}">Les bases</a></li>
+                                    <li><a href="{{ path('tv_chef_recipe_index', {'type': 'Apéritifs'}) }}">Apéritifs</a></li>
+                                    <li><a href="{{ path('tv_chef_recipe_index', {'type': 'Cocktails'}) }}">Cocktails</a></li>
                                 </ul>
                                 <ul>
-                                    <li><a href="#">Entrées</a></li>
-                                    <li><a href="#">Plats</a></li>
-                                    <li><a href="#">Desserts</a></li>
+                                    <li><a href="{{ path('tv_chef_recipe_index', {'type': 'Entrées'}) }}">Entrées</a></li>
+                                    <li><a href="{{ path('tv_chef_recipe_index', {'type': 'Plats'}) }}">Plats</a></li>
+                                    <li><a href="{{ path('tv_chef_recipe_index', {'type': 'Desserts'}) }}">Desserts</a></li>
                                 </ul>
                                 <ul>
-                                    <li><a href="#">Recettes avec ingrédients locaux et de saison</a></li>
-                                    <li><a href="#">Recettes végétariennes</a></li>
-                                    <li><a href="#">Recettes végétaliennes</a></li>
+                                    <li><a href="{{ path('tv_chef_recipe_index', {'category': 'Locaux et de saison'}) }}">Recettes avec ingrédients locaux et de saison</a></li>
+                                    <li><a href="{{ path('tv_chef_recipe_index', {'category': 'Végétariennes'}) }}">Recettes végétariennes</a></li>
+                                    <li><a href="{{ path('tv_chef_recipe_index', {'category': 'Végétaliennes'}) }}">Recettes végétaliennes</a></li>
                                 </ul>
                                 <ul class="last">
-                                    <li><a href="#">Recettes sans gluten</a></li>
-                                    <li><a href="#">Recettes régionales</a></li>
-                                    <li><a href="#">Recettes du monde</a></li>
+                                    <li><a href="{{ path('tv_chef_recipe_index', {'category': 'Sans-gluten'}) }}">Recettes sans gluten</a></li>
+                                    <li><a href="{{ path('tv_chef_recipe_index', {'locality': 'Régional'}) }}">Recettes régionales</a></li>
+                                    <li><a href="{{ path('tv_chef_recipe_index', {'locality': 'Du Monde'}) }}">Recettes du monde</a></li>
                                 </ul>
                             </div>
                         </div>
                     </li>
-                    <li id="vege"><a href="#">Recettes végétariennes</a></li>
-                    <li><a href="#">Recettes végétaliennes</a></li>
-                    <li class="last"><a href="cuistots.html">Les Cuistots</a></li>
+                    <li id="vege"><a href="{{ path('tv_chef_recipe_index', {'category': 'Végétariennes'}) }}">Recettes végétariennes</a></li>
+                    <li><a href="{{ path('tv_chef_recipe_index', {'category': 'Végétaliennes'}) }}">Recettes végétaliennes</a></li>
+                    <li class="last"><a href="{{ path('tv_user_index') }}">Les Cuistots</a></li>
                 </ul>
             </div>
         </nav>
@@ -86,25 +106,25 @@
         <footer>
             <div class="container">
                 <ul>
-                    <li><a href="index.html">Accueil</a></li>
-                    <li><a href="recettes.html">Recettes</a></li>
-                    <li><a href="recettes_vege.html">Recettes végétariennes</a></li>
-                    <li><a href="recettes_vegan.html">Recettes végétaliennes</a></li>
-                    <li><a href="cuitots">Les Cuistots</a></li>
+                    <li><a href="{{ path('tv_chef_homepage') }}">Accueil</a></li>
+                    <li><a href="{{ path('tv_chef_recipe_index') }}">Recettes</a></li>
+                    <li><a href="{{ path('tv_chef_recipe_index', {'category': 'Végétariennes'}) }}">Recettes végétariennes</a></li>
+                    <li><a href="{{ path('tv_chef_recipe_index', {'category': 'Végétaliennes'}) }}">Recettes végétaliennes</a></li>
+                    <li><a href="{{ path('tv_user_index') }}">Les Cuistots</a></li>
                 </ul>
                 <ul>
-                    <li><a href="#">Les bases</a></li>
-                    <li><a href="#">Appéritifs</a></li>
-                    <li><a href="#">Entrées</a></li>
-                    <li><a href="#">Plats</a></li>
-                    <li><a href="#">Desserts</a></li>
-                    <li><a href="#">Cocktails</a></li>
+                    <li><a href="{{ path('tv_chef_recipe_index', {'type': 'Les Bases'}) }}">Les bases</a></li>
+                    <li><a href="{{ path('tv_chef_recipe_index', {'type': 'Apéritifs'}) }}">Appéritifs</a></li>
+                    <li><a href="{{ path('tv_chef_recipe_index', {'type': 'Entrées'}) }}">Entrées</a></li>
+                    <li><a href="{{ path('tv_chef_recipe_index', {'type': 'Plats'}) }}">Plats</a></li>
+                    <li><a href="{{ path('tv_chef_recipe_index', {'type': 'Desserts'}) }}">Desserts</a></li>
+                    <li><a href="{{ path('tv_chef_recipe_index', {'type': 'Cocktails'}) }}">Cocktails</a></li>
                 </ul>
                 <ul class="last">
-                    <li><a href="#">Recettes avec ingrédients locaux et de saison</a></li>
-                    <li><a href="#">Recettes sans gluten</a></li>
-                    <li><a href="#">Recettes régionales</a></li>
-                    <li><a href="#">Recettes du monde</a></li>
+                    <li><a href="{{ path('tv_chef_recipe_index', {'category': 'Locaux et de saison'}) }}">Recettes avec ingrédients locaux et de saison</a></li>
+                    <li><a href="{{ path('tv_chef_recipe_index', {'category': 'Sans-gluten'}) }}">Recettes sans gluten</a></li>
+                    <li><a href="{{ path('tv_chef_recipe_index', {'locality': 'Régional'}) }}">Recettes régionales</a></li>
+                    <li><a href="{{ path('tv_chef_recipe_index', {'locality': 'Du Monde'}) }}">Recettes du monde</a></li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
@@ -112,6 +132,7 @@
         
         <script src="{{ asset('chef/js/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('chef/js/responsive-menu.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('chef/js/menu.js') }}" type="text/javascript"></script>
         
         {% block javascripts %}{% endblock %}
     </body>

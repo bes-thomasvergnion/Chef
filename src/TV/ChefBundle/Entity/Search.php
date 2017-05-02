@@ -20,25 +20,13 @@ class Search
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-    
+
     /**
-     * @ORM\ManyToOne(targetEntity="TV\ChefBundle\Entity\Type", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=true)
+     * @var string
+     *
+     * @ORM\Column(name="value", type="string", length=255)
      */
-    private $type;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="TV\ChefBundle\Entity\Category", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $category;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="TV\ChefBundle\Entity\Locality", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $locality;
-    
+    private $value;
 
 
     /**
@@ -52,74 +40,27 @@ class Search
     }
 
     /**
-     * Set type
+     * Set value
      *
-     * @param \TV\ChefBundle\Entity\Type $type
+     * @param string $value
      *
      * @return Search
      */
-    public function setType(\TV\ChefBundle\Entity\Type $type = null)
+    public function setValue($value)
     {
-        $this->type = $type;
+        $this->value = $value;
 
         return $this;
     }
 
     /**
-     * Get type
+     * Get value
      *
-     * @return \TV\ChefBundle\Entity\Type
+     * @return string
      */
-    public function getType()
+    public function getValue()
     {
-        return $this->type;
-    }
-
-    /**
-     * Set category
-     *
-     * @param \TV\ChefBundle\Entity\Category $category
-     *
-     * @return Search
-     */
-    public function setCategory(\TV\ChefBundle\Entity\Category $category = null)
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * Get category
-     *
-     * @return \TV\ChefBundle\Entity\Category
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
-
-    /**
-     * Set locality
-     *
-     * @param \TV\ChefBundle\Entity\Locality $locality
-     *
-     * @return Search
-     */
-    public function setLocality(\TV\ChefBundle\Entity\Locality $locality = null)
-    {
-        $this->locality = $locality;
-
-        return $this;
-    }
-
-    /**
-     * Get locality
-     *
-     * @return \TV\ChefBundle\Entity\Locality
-     */
-    public function getLocality()
-    {
-        return $this->locality;
+        return $this->value;
     }
 }
+

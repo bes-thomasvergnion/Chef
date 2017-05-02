@@ -1,1 +1,89 @@
-{# empty Twig template #}
+{% extends "TVChefBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Modifier recette
+{% endblock %}
+
+{% block chef_body %}
+    <section  class="recipe-single form">
+        <div class="container">
+            <h2 class="center">Modifier une recette</h2>
+
+                {{ form_start(form, {'attr': {'class': 'form'}}) }}
+
+                    {# Les erreurs générales du formulaire. #}
+                    {{ form_errors(form) }}
+
+                    <div class="error">
+                        {{ form_errors(form) }}
+                    </div>
+
+                    <div class="form-name">
+                        {{ form_label(form.name, "Nom de la recette:", {'label_attr': {'class': ''}}) }}
+                        {{ form_widget(form.name, {'attr': {'class': ''}}) }}
+                    </div>
+
+                    <img class="img-recipe-single" src="{{ asset('chef/images/default.jpg') }}" alt="default">
+                    
+                    <div class="infos">
+                        {{ form_label(form.level, "Difficulté: ", {'label_attr': {'class': 'label-title'}}) }}
+                        {{ form_widget(form.level, {'attr': {'class': 'level-radio'}}) }}
+                    </div>
+                    
+                    <div class="responsive-clear"></div>
+                    <div class="guide">
+                        <h3 class="title-box">Guide de préparation</h3>
+                        <div class="content">
+                            <div class="content-1-2">
+                                <p>
+                                    <i class="fa fa-users" aria-hidden="true"></i>
+                                    {{ form_label(form.nbOfPers, "Nbr de personnes:", {'label_attr': {'class': ''}}) }}
+                                    {{ form_widget(form.nbOfPers, {'attr': {'class': ''}}) }}
+                                </p>
+                                <p>
+                                    <i class="fa fa-free-code-camp" aria-hidden="true"></i>
+                                    {{ form_label(form.cookingTime, "Temps de cuisson:", {'label_attr': {'class': ''}}) }}
+                                    {{ form_widget(form.cookingTime, {'attr': {'class': ''}}) }}
+                                    min
+                                </p>
+                            </div>
+                            <div class="content-1-2 last">
+                                <p>
+                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                    {{ form_label(form.preparationTime, "Temps de préparation:", {'label_attr': {'class': ''}}) }}
+                                    {{ form_widget(form.preparationTime, {'attr': {'class': ''}}) }}
+                                    min
+                                </p>
+                                <p>
+                                    <i class="fa fa-pause-circle-o" aria-hidden="true"></i>
+                                    {{ form_label(form.timeout, "Temps de repos:", {'label_attr': {'class': ''}}) }}
+                                    {{ form_widget(form.timeout, {'attr': {'class': ''}}) }}
+                                    min
+                                </p>
+                                
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>                     
+                    
+                    <div class="clearfix"></div>
+                    
+                    {{ form_widget(form.image, {'attr': {'class': 'upload-img'}}) }}
+                    
+                    <div class="categories">
+                        {{ form_label(form.types, "Type: ", {'label_attr': {'class': 'label-title'}}) }}
+                        {{ form_widget(form.types, {'attr': {'class': 'chekbox'}}) }}
+
+                        {{ form_label(form.categories, "Catégorie: ", {'label_attr': {'class': 'label-title'}}) }}
+                        {{ form_widget(form.categories, {'attr': {'class': 'chekbox'}}) }}
+
+                        {{ form_label(form.localities, "Localité: ", {'label_attr': {'class': 'label-title'}}) }}
+                        {{ form_widget(form.localities, {'attr': {'class': 'chekbox'}}) }}
+                    </div>
+
+
+                    {{ form_widget(form.save, { 'label': 'Modifier recette' }) }}
+                {{ form_end(form) }}
+        </div>
+    </section>
+{% endblock %}

@@ -8,7 +8,6 @@
     <section  class="recipe-single form">
         <div class="container">
             <h2 class="center">Ajouter une recette</h2>
-
                 {{ form_start(form, {'attr': {'class': 'form'}}) }}
 
                     {# Les erreurs générales du formulaire. #}
@@ -26,24 +25,8 @@
                     <img class="img-recipe-single" src="{{ asset('chef/images/default.jpg') }}" alt="default">
                     
                     <div class="infos">
-                        <ul class="labels">
-                            <li>{{ form_label(form.level, "Difficulté: ", {'label_attr': {'class': ''}}) }}</li>
-
-                            <li>{{ form_label(form.type, "Type: ", {'label_attr': {'class': ''}}) }}</li>
-
-                            <li>{{ form_label(form.category, "Catégorie: ", {'label_attr': {'class': ''}}) }}</li>
-
-                            <li>{{ form_label(form.locality, "Localité: ", {'label_attr': {'class': ''}}) }}</li>
-                        </ul>
-                        <ul>
-                            <li>{{ form_widget(form.level, {'attr': {'class': ''}}) }}</li>
-
-                            <li>{{ form_widget(form.type, {'attr': {'class': ''}}) }}</li>
-
-                            <li>{{ form_widget(form.category, {'attr': {'class': ''}}) }}</li>
-
-                            <li>{{ form_widget(form.locality, {'attr': {'class': ''}}) }}</li>
-                        </ul>
+                        {{ form_label(form.level, "Difficulté: ", {'label_attr': {'class': 'label-title'}}) }}
+                        {{ form_widget(form.level, {'attr': {'class': 'level-radio'}}) }}
                     </div>
                     
                     <div class="responsive-clear"></div>
@@ -84,9 +67,21 @@
                     
                     <div class="clearfix"></div>
                     
-                    {{ form_widget(form.image, {'attr': {'class': 'upload-img'}}) }} 
+                    {{ form_widget(form.image) }}
+                    
+                    
+                    <div class="categories">
+                        {{ form_label(form.types, "Type: ", {'label_attr': {'class': 'label-title'}}) }}
+                        {{ form_widget(form.types, {'attr': {'class': 'chekbox'}}) }}
 
-                    <h2>Ingrédients: </h2>
+                        {{ form_label(form.categories, "Catégorie: ", {'label_attr': {'class': 'label-title'}}) }}
+                        {{ form_widget(form.categories, {'attr': {'class': 'chekbox'}}) }}
+
+                        {{ form_label(form.localities, "Localité: ", {'label_attr': {'class': 'label-title'}}) }}
+                        {{ form_widget(form.localities, {'attr': {'class': 'chekbox'}}) }}
+                    </div>
+
+                  {#  <h2>Ingrédients: </h2>
 
                     <div class="ingredients">
                         
@@ -102,14 +97,14 @@
                         {{ form_widget(form.steps, {'attr': {'class': 'step-form'}}) }}
                        
                         <a href="#" id="add_step" class="btn btn-default">Ajouter une étape</a>
-                    </div>
+                    </div>#}
 
-                    {{ form_widget(form.save, { 'label': 'Ajouter recette' }) }}
+                    {{ form_widget(form.save, { 'label': 'Ajouter recette', 'attr' : {'class': 'btn' }}) }}
                 {{ form_end(form) }}
         </div>
     </section>
 {% endblock %}
 
 {% block javascripts %}
-    <script src="{{ asset('chef/js/form.js') }}" type="text/javascript"></script>
+    {#<script src="{{ asset('chef/js/form.js') }}" type="text/javascript"></script>#}
 {% endblock %}

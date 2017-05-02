@@ -1,0 +1,53 @@
+{% extends "TVChefBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Modifier étape
+{% endblock %}
+
+{% block chef_body %}
+    <section  class="recipe-single form">
+        <div class="container">
+            <h2 class="center">Modifier étape</h2>
+                {{ form_start(form, {'attr': {'class': 'form'}}) }}
+
+                    {# Les erreurs générales du formulaire. #}
+                    {{ form_errors(form) }}
+
+                    <div class="error">
+                        {{ form_errors(form) }}
+                    </div>
+                    <div class="form-name">
+                        {{ form_label(form.name, "Nom: ", {'label_attr': {'class': ''}}) }}
+                        {{ form_widget(form.name, {'attr': {'class': ''}}) }}
+                    </div>
+                    
+                    <div class="box-img">
+                        <img class="img-recipe-single min" src="{{ asset('chef/images/default.jpg') }}" alt="default">
+                        {{ form_widget(form.image, {'attr': {'class': 'no-border'}}) }}
+                    </div>
+                    
+                    <div class="box-img">
+                        <img class="img-recipe-single min" src="{{ asset('chef/images/default-video.jpg') }}" alt="default"> <br>
+                        {{ form_label(form.video, "URL youtube: ", {'label_attr': {'class': ''}}) }}
+                        {{ form_widget(form.video, {'attr': {'class': ''}}) }}
+                    </div>
+                    
+                    <div class="clearfix"></div>
+                    
+                    <p>{{ form_label(form.content, "Contenu: ", {'label_attr': {'class': ''}}) }}</p>
+                    {{ form_widget(form.content, {'attr': {'class': 'content-input'}}) }}
+                    
+                    
+                    
+                    <p>{{ form_label(form.timer, "Chronomètre: ", {'label_attr': {'class': ''}}) }}</p>
+                    <div class="timer-form">
+                        <p>{{ form_widget(form.timer.hour, {'attr': {'class': ''}}) }} h : 
+                       {{ form_widget(form.timer.minute, {'attr': {'class': ''}}) }} min : 
+                       {{ form_widget(form.timer.second, {'attr': {'class': ''}}) }} s</p>
+                    </div>
+
+                    {{ form_widget(form.save, { 'label': 'Modifier étape', 'attr' : {'class': 'btn' }}) }}
+                {{ form_end(form) }}
+        </div>
+    </section>
+{% endblock %}{# empty Twig template #}

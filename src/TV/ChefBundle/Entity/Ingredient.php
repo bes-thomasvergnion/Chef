@@ -36,6 +36,12 @@ class Ingredient
     private $quantity;
     
     /**
+     * @ORM\ManyToOne(targetEntity="TV\ChefBundle\Entity\TypeQuantity")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $typequantity;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="TV\ChefBundle\Entity\Recipe", inversedBy="steps")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -102,7 +108,7 @@ class Ingredient
         return $this->quantity;
     }
     
-        /**
+    /**
      * Set recipe
      *
      * @param \TV\ChefBundle\Entity\Recipe $recipe
@@ -124,6 +130,30 @@ class Ingredient
     public function getRecipe()
     {
         return $this->recipe;
+    }
+    
+    /**
+     * Set typequantity
+     *
+     * @param \TV\ChefBundle\Entity\TypeQuantity $typequantity
+     *
+     * @return TypeQuantity
+     */
+    public function setTypequantity(\TV\ChefBundle\Entity\TypeQuantity $typequantity)
+    {
+        $this->typequantity = $typequantity;
+
+        return $this;
+    }
+
+    /**
+     * Get typequantity
+     *
+     * @return \TV\ChefBundle\Entity\TypeQuantity
+     */
+    public function getTypequantity()
+    {
+        return $this->typequantity;
     }
     
 }

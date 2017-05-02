@@ -11,10 +11,7 @@
         <div id="slider">
             <div class="search-box home">
                 <h2 class="title-search">Trouver une recette:</h2>
-                <form action="search.php" class="search-form">
-                    <input class="search" type="text" placeholder="Rechercher"/>
-                    <button type="submit" class="search-btn"><i class="fa fa-search" aria-hidden="true"></i></button>  
-                </form>
+                {{ render(controller("TVChefBundle:Search:index",{request: app.request})) }}
             </div>
             <div id="slide">
                 <div class="owl-carousel">
@@ -29,54 +26,29 @@
     <section class="center no-top">
         <div class="container">
             <h2 class="title_home">Manger avec de ingrédients locaux et de saison:</h2>
-            <a class="link-recipe" href="recette.html">
-                <div class="polaroid recipe left">
-                    <img class="picture" src="{{ asset('chef/images/recipe1.jpg') }}" alt="recipe1" />
-                    <h3>Pâtes bolognaises végétariennes</h3>
-                    <div class="absolute note">
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
+            {% for recipe in listRecipesLocal %}
+                {% if count == 0 or count%3 == 0 %}<div class="row"> {% endif %}
+                {% set count = count + 1 %}
+                <a class="link-recipe" href="{{ path('tv_chef_recipe_view', {'id': recipe.id}) }}">
+                    <div class="polaroid recipe{% if loop.index is odd %} left {%else%} right{%endif%} {% if loop.index == 3 or loop.index%3 == 0 %}last{%endif%}">
+                        <img class="picture" src="{% if recipe.image.webPath is defined %}{{ asset(recipe.image.webPath) }}{%else%}{{ asset('chef/images/default.jpg') }}{%endif%}" alt="{%if recipe.image.alt is defined%}{{ recipe.image.alt }}{%else%}Default{%endif%}" />
+                        <h3>{{ recipe.name }}</h3>
+                        <div class="absolute note">
+                            {% if recipe.note != null %}
+                                {% for i in 1..recipe.note %}
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="absolute level">
+                            {% for i in 1..recipe.level.id %}
+                                <img src="{{ asset('chef/images/level2.png') }}" alt="level">
+                            {% endfor %}
+                        </div>
                     </div>
-                    <div class="absolute level">
-                        <img src="images/level.png" alt="level">
-                    </div>
-                </div>
-            </a>
-            <a class="link-recipe" href="recette.html">
-                <div class="polaroid recipe right">
-                    <img class="picture" src="{{ asset('chef/images/recipe2.jpg') }}" alt="recipe2" />
-                    <h3>Risotto</h3>
-                    <div class="absolute note">
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                    </div>
-                    <div class="absolute level">
-                        <img src="images/level.png" alt="level">
-                        <img src="images/level.png" alt="level">
-                    </div>
-                </div>
-            </a>
-            <a class="link-recipe" href="recette.html">
-                <div class="polaroid recipe left last">
-                    <img class="picture" src="{{ asset('chef/images/recipe3.jpg') }}" alt="recipe3" />
-                    <h3>Beignets aux chocolat</h3>
-                    <div class="absolute note">
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                    </div>
-                    <div class="absolute level">
-                        <img src="images/level.png" alt="level">
-                        <img src="images/level.png" alt="level">
-                        <img src="images/level.png" alt="level">
-                    </div>
-                </div>
-            </a>
+                </a>
+                {% if count == 3 or count%3 == 0 or loop.last %}<div class="clearfix"></div> </div>{% endif %}
+            {% endfor %}
             <div class="clearfix"></div>
         </div>
     </section>
@@ -86,54 +58,30 @@
     <section class="center">
         <div class="container">
             <h2 class="title_home">Nos recettes 100% végétaliennes:</h2>
-            <a class="link-recipe" href="recette.html">
-                <div class="polaroid recipe right">
-                    <img class="picture" src="{{ asset('chef/images/recipe4.jpg') }}" alt="recipe4" />
-                    <h3>steack de lentilles</h3>
-                    <div class="absolute note">
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
+            {% set count = 0 %}
+            {% for recipe in listRecipesVegan %}
+                {% if count == 0 or count%3 == 0 %}<div class="row"> {% endif %}
+                {% set count = count + 1 %}
+                <a class="link-recipe" href="{{ path('tv_chef_recipe_view', {'id': recipe.id}) }}">
+                    <div class="polaroid recipe{% if loop.index is odd %} left {%else%} right{%endif%} {% if loop.index == 3 or loop.index%3 == 0 %}last{%endif%}">
+                        <img class="picture" src="{% if recipe.image.webPath is defined %}{{ asset(recipe.image.webPath) }}{%else%}{{ asset('chef/images/default.jpg') }}{%endif%}" alt="{%if recipe.image.alt is defined%}{{ recipe.image.alt }}{%else%}Default{%endif%}" />
+                        <h3>{{ recipe.name }}</h3>
+                        <div class="absolute note">
+                            {% if recipe.note != null %}
+                                {% for i in 1..recipe.note %}
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="absolute level">
+                            {% for i in 1..recipe.level.id %}
+                                <img src="{{ asset('chef/images/level2.png') }}" alt="level">
+                            {% endfor %}
+                        </div>
                     </div>
-                    <div class="absolute level">
-                        <img src="images/level.png" alt="level">
-                        <img src="images/level.png" alt="level">
-                        <img src="images/level.png" alt="level">
-                    </div>
-                </div>
-            </a>
-            <a class="link-recipe" href="recette.html">
-                <div class="polaroid recipe left">
-                    <img class="picture" src="{{ asset('chef/images/recipe5.jpg') }}" alt="recipe5" />
-                    <h3>Sablé fleur d'oranger / chocolat</h3>
-                    <div class="absolute note">
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                    </div>
-                    <div class="absolute level">
-                        <img src="images/level.png" alt="level">
-                    </div>
-                </div>
-            </a>
-            <a class="link-recipe" href="recette.html">
-                <div class="polaroid recipe right last">
-                    <img class="picture" src="{{ asset('chef/images/recipe6.jpg') }}" alt="recipe6" />
-                    <h3>Courge spaghetti aux champignons</h3>
-                    <div class="absolute note">
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                    </div>
-                    <div class="absolute level">
-                        <img src="images/level.png" alt="level">
-                        <img src="images/level.png" alt="level">
-                    </div>
-                </div>
-            </a>
+                </a>
+                {% if count == 3 or count%3 == 0 or loop.last %}<div class="clearfix"></div> </div>{% endif %}
+            {% endfor %}
             <div class="clearfix"></div>
         </div>
     </section>
@@ -143,54 +91,30 @@
     <section class="center">
         <div class="container">
             <h2 class="title_home">Nos recettes sans gluten:</h2>
-            <a class="link-recipe" href="recette.html">
-                <div class="polaroid recipe right">
-                    <img class="picture" src="{{ asset('chef/images/recipe4.jpg') }}" alt="recipe4" />
-                    <h3>steack de lentilles</h3>
-                    <div class="absolute note">
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                    </div>
-                    <div class="absolute level">
-                        <img src="images/level.png" alt="level">
-                        <img src="images/level.png" alt="level">
-                        <img src="images/level.png" alt="level">
-                    </div>
-                </div>
-                </a>
-                <a class="link-recipe" href="recette.html">
-                    <div class="polaroid recipe left">
-                        <img class="picture" src="{{ asset('chef/images/recipe5.jpg') }}" alt="recipe5" />
-                        <h3>Sablé fleur d'oranger / chocolat</h3>
+            {% set count = 0 %}
+            {% for recipe in listRecipesGluten %}
+                {% if count == 0 or count%3 == 0 %}<div class="row"> {% endif %}
+                {% set count = count + 1 %}
+                <a class="link-recipe" href="{{ path('tv_chef_recipe_view', {'id': recipe.id}) }}">
+                    <div class="polaroid recipe{% if loop.index is odd %} left {%else%} right{%endif%} {% if loop.index == 3 or loop.index%3 == 0 %}last{%endif%}">
+                        <img class="picture" src="{% if recipe.image.webPath is defined %}{{ asset(recipe.image.webPath) }}{%else%}{{ asset('chef/images/default.jpg') }}{%endif%}" alt="{%if recipe.image.alt is defined%}{{ recipe.image.alt }}{%else%}Default{%endif%}" />
+                        <h3>{{ recipe.name }}</h3>
                         <div class="absolute note">
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
+                            {% if recipe.note != null %}
+                                {% for i in 1..recipe.note %}
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                {% endfor %}
+                            {% endif %}
                         </div>
                         <div class="absolute level">
-                            <img src="images/level.png" alt="level">
+                            {% for i in 1..recipe.level.id %}
+                                <img src="{{ asset('chef/images/level2.png') }}" alt="level">
+                            {% endfor %}
                         </div>
                     </div>
                 </a>
-                <a class="link-recipe" href="recette.html">
-                    <div class="polaroid recipe right last">
-                        <img class="picture" src="{{ asset('chef/images/recipe6.jpg') }}" alt="recipe6" />
-                        <h3>Courge spaghetti aux champignons</h3>
-                        <div class="absolute note">
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                        </div>
-                        <div class="absolute level">
-                            <img src="images/level.png" alt="level">
-                            <img src="images/level.png" alt="level">
-                        </div>
-                    </div>
-                </a>
+                {% if count == 3 or count%3 == 0 or loop.last %}<div class="clearfix"></div> </div>{% endif %}
+            {% endfor %}
             <div class="clearfix"></div>
         </div>
     </section>

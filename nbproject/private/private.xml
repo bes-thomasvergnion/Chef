@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/wamp64/www/Chef/src/TV/ChefBundle/Form/FilterType.php</file>
+            <file>file:/C:/wamp64/www/Chef/src/TV/ChefBundle/Entity/Filter.php</file>
+            <file>file:/C:/wamp64/www/Chef/src/TV/ChefBundle/Resources/config/routing.yml</file>
+            <file>file:/C:/wamp64/www/Chef/src/TV/ChefBundle/Controller/IngredientController.php</file>
+            <file>file:/C:/wamp64/www/Chef/web/chef/js/filters.js</file>
+            <file>file:/C:/wamp64/www/Chef/src/TV/ChefBundle/Controller/FilterController.php</file>
+            <file>file:/C:/wamp64/www/Chef/src/TV/ChefBundle/Resources/views/Recipe/view.html.twig</file>
+            <file>file:/C:/wamp64/www/Chef/src/TV/ChefBundle/Resources/views/Pages/filters.html.twig</file>
+            <file>file:/C:/wamp64/www/Chef/src/TV/ChefBundle/Repository/FilterRepository.php</file>
+            <file>file:/C:/wamp64/www/Chef/web/chef/css/style.css</file>
+            <file>file:/C:/wamp64/www/Chef/src/TV/ChefBundle/Controller/RecipeController.php</file>
+        </group>
+    </open-files>
+</project-private>

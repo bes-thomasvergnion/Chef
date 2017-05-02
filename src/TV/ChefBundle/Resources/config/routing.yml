@@ -24,14 +24,18 @@ tv_chef_recipe_add:
         _controller: TVChefBundle:Recipe:add
         
 tv_chef_recipe_edit:
-    path:    /recipe/edit
+    path:    /recipe/edit/{id}
     defaults: 
         _controller: TVChefBundle:Recipe:edit
+    requirements:
+        id: \d+
         
 tv_chef_recipe_delete:
-    path:    /recipe/delete
+    path:    /recipe/delete/{id}
     defaults: 
         _controller: TVChefBundle:Recipe:delete
+    requirements:
+        id: \d+
         
 tv_chef_filter_select:
     path:      /recipes/select/{page}
@@ -41,4 +45,57 @@ tv_chef_filter_select:
     requirements:
         _method: POST
         page: \d+
+
+tv_chef_search_select:
+    path:      /recipes/search/{page}
+    defaults:
+        _controller: TVChefBundle:Search:select
+        page:  1
+    requirements:
+        _method: POST
+        page: \d+
+        
+tv_chef_ingredient_add:
+    path:    /ingredient/add/{id}
+    defaults: 
+        _controller: TVChefBundle:Ingredient:add
+    requirements:
+        id: \d+
+        
+tv_chef_ingredient_edit:
+    path:   /recipe/{id_recipe}/ingredient/edit/{id}
+    defaults:
+        _controller: TVChefBundle:Ingredient:edit
+    requirements:
+        id: \d+
+        id_recipe: \d+
+        
+tv_chef_ingredient_delete:
+    path:   /recipe/{id_recipe}/ingredient/delete/{id}
+    defaults:
+        _controller: TVChefBundle:Ingredient:delete
+    requirements:
+        id: \d+
+        
+tv_chef_step_add:
+    path:    /step/add/{id}
+    defaults: 
+        _controller: TVChefBundle:Step:add
+    requirements:
+        id: \d+
+        
+tv_chef_step_edit:
+    path:   /recipe/{id_recipe}/step/edit/{id}
+    defaults:
+        _controller: TVChefBundle:Step:edit
+    requirements:
+        id: \d+
+        id_recipe: \d+
+        
+tv_chef_step_delete:
+    path:   /recipe/{id_recipe}/step/delete/{id}
+    defaults:
+        _controller: TVChefBundle:Step:delete
+    requirements:
+        id: \d+
         

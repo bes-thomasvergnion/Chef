@@ -35,6 +35,12 @@ class Recipe
      * @ORM\Column(name="date", type="datetime")
      */
     private $date;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="TV\UserBundle\Entity\User", inversedBy="recipes", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $author;
 
     /**
      * @ORM\ManyToOne(targetEntity="TV\ChefBundle\Entity\Level", cascade={"persist"})
@@ -84,40 +90,43 @@ class Recipe
     private $image;
     
     /**
-     * @ORM\OneToMany(targetEntity="TV\ChefBundle\Entity\Ingredient", mappedBy="recipe", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="TV\ChefBundle\Entity\Ingredient", mappedBy="recipe", cascade={"persist"}, cascade={"remove"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $ingredients;
     
     /**
-     * @ORM\OneToMany(targetEntity="TV\ChefBundle\Entity\Step", mappedBy="recipe", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="TV\ChefBundle\Entity\Step", mappedBy="recipe", cascade={"persist"}, cascade={"remove"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $steps;
     
     /**
-     * @ORM\ManyToOne(targetEntity="TV\ChefBundle\Entity\Type", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="TV\ChefBundle\Entity\Type", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
-    private $type;
+    private $types;
     
     /**
-     * @ORM\ManyToOne(targetEntity="TV\ChefBundle\Entity\Category", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="TV\ChefBundle\Entity\Category", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
-    private $category;
+    private $categories;
     
     /**
-     * @ORM\ManyToOne(targetEntity="TV\ChefBundle\Entity\Locality", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="TV\ChefBundle\Entity\Locality", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
-    private $locality;
+    private $localities;
     
     public function __construct()
     {
         $this->date = new \Datetime();
         $this->steps = new ArrayCollection();
         $this->ingredients = new ArrayCollection();
+        $this->types = new ArrayCollection();
+        $this->categories = new ArrayCollection();
+        $this->localities = new ArrayCollection();
     }
 
     /**
@@ -166,6 +175,7 @@ class Recipe
         $this->date = $date;
         return $this;
     }
+    
     /**
      * Get date
      *
@@ -174,6 +184,28 @@ class Recipe
     public function getDate()
     {
         return $this->date;
+    }
+    
+    /**
+     * Set author
+     *
+     * @param string $author
+     *
+     * @return Advert
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+        return $this;
+    }
+    /**
+     * Get author
+     *
+     * @return string
+     */
+    public function getAuthor()
+    {
+        return $this->author;
     }
 
     /**
@@ -378,76 +410,49 @@ class Recipe
         return $this->ingredients;
     }
     
-    /**
-     * Set type
-     *
-     * @param \TV\ChefBundle\Entity\Type $type
-     *
-     * @return Recipe
-     */
-    public function setType(\TV\ChefBundle\Entity\Type $type = null)
+    public function addType(Type $type)
     {
-        $this->type = $type;
-
-        return $this;
+        $this->types[] = $type;
     }
 
-    /**
-     * Get type
-     *
-     * @return \TV\ChefBundle\Entity\Type
-     */
-    public function getType()
+    public function removeType(Type $type)
     {
-        return $this->type;
+        $this->types->removeElement($type);
     }
 
-    /**
-     * Set category
-     *
-     * @param \TV\ChefBundle\Entity\Category $category
-     *
-     * @return Recipe
-     */
-    public function setCategory(\TV\ChefBundle\Entity\Category $category = null)
+    public function getTypes()
     {
-        $this->category = $category;
-
-        return $this;
+        return $this->types;
     }
 
-    /**
-     * Get category
-     *
-     * @return \TV\ChefBundle\Entity\Category
-     */
-    public function getCategory()
+    public function addCategory(Category $category)
     {
-        return $this->category;
+        $this->categories[] = $category;
     }
 
-    /**
-     * Set locality
-     *
-     * @param \TV\ChefBundle\Entity\Locality $locality
-     *
-     * @return Recipe
-     */
-    public function setLocality(\TV\ChefBundle\Entity\Locality $locality = null)
+    public function removeCategory(Category $category)
     {
-        $this->locality = $locality;
-
-        return $this;
+        $this->categories->removeElement($category);
     }
 
-    /**
-     * Get locality
-     *
-     * @return \TV\ChefBundle\Entity\Locality
-     */
-    public function getLocality()
+    public function getCategories()
     {
-        return $this->locality;
+        return $this->categories;
+    }
+
+    public function addLocality(Locality $locality)
+    {
+        $this->localities[] = $locality;
+    }
+
+    public function removeLocality(Locality $locality)
+    {
+        $this->localities->removeElement($locality);
+    }
+
+    public function getLocalities()
+    {
+        return $this->localities;
     }
 }
 

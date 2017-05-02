@@ -21,7 +21,7 @@ class RecipeType extends AbstractType
         $builder->add('name', TextType::class)
                 ->add('level', EntityType::class, array(
                     'class' => 'TVChefBundle:Level',
-                    'placeholder' => '--',
+                    'expanded'     => true,
                     'required'  => true,
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('u')
@@ -29,9 +29,10 @@ class RecipeType extends AbstractType
                     },
                     'choice_label' => 'name',
                 ))
-                ->add('type', EntityType::class, array(
+                ->add('types', EntityType::class, array(
                     'class' => 'TVChefBundle:Type',
-                    'placeholder' => '--',
+                    'multiple'     => true,
+                    'expanded'     => true,
                     'required'  => false,
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('u')
@@ -39,9 +40,10 @@ class RecipeType extends AbstractType
                     },
                     'choice_label' => 'name',
                 ))
-                ->add('category', EntityType::class, array(
+                ->add('categories', EntityType::class, array(
                     'class' => 'TVChefBundle:Category',
-                    'placeholder' => '--',
+                    'multiple'     => true,
+                    'expanded'     => true,
                     'required'  => false,
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('u')
@@ -49,9 +51,10 @@ class RecipeType extends AbstractType
                     },
                     'choice_label' => 'name',
                 ))
-                ->add('locality', EntityType::class, array(
+                ->add('localities', EntityType::class, array(
                     'class' => 'TVChefBundle:Locality',
-                    'placeholder' => '--',
+                    'multiple'     => true,
+                    'expanded'     => true,
                     'required'  => false,
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('u')

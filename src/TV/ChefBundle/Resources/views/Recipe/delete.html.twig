@@ -1,1 +1,21 @@
-{# empty Twig template #}
+{% extends "TVChefBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Supprimer recette
+{% endblock %}
+
+{% block chef_body %}
+    <section class="recipe-single">
+        <div class="container">
+            <h2>Supprimer une recette</h2>
+            <p>Etes-vous certain de vouloir supprimer cette recette ?</p>
+
+            <form action="{{ path('tv_chef_recipe_delete', {'id': recipe.id}) }}" method="post">
+                <a href="{{ path('tv_chef_recipe_view', {'id': recipe.id}) }}" class="btn">Retour à la recette</a>
+                <input type="submit" value="Supprimer" class="btn" />
+                {{ form_rest(form) }}
+            </form>         
+        </div>
+        <div class="clearfix"></div>
+    </section>
+{% endblock %}

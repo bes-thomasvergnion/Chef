@@ -25,24 +25,44 @@ class RecipeRepository extends \Doctrine\ORM\EntityRepository
         return new Paginator($query, true);
     }
     
-    public function getRecipesWithFilters(\TV\ChefBundle\Entity\Search $search, $page, $nbPerPage)
+    public function getRecipesWithSearch($search, $page, $nbPerPage)
+    {
+        $query = $this->createQueryBuilder('a')
+            ->where('a.name LIKE :search')
+            ->setParameter('search', '%' .$search. '%')
+            ->orderBy('a.id', 'DESC')
+            ->getQuery()
+        ;
+        
+        $query
+            ->setFirstResult(($page-1) * $nbPerPage)
+            ->setMaxResults($nbPerPage)
+          ;
+        return new Paginator($query, true);
+    }
+    
+    public function getRecipesWithFilters(\TV\ChefBundle\Entity\Filter $filter, $page, $nbPerPage)
     {            
         $query = $this->createQueryBuilder('g');
         $andX = $query->expr()->andX();
-        if(null !== $search->getType()){
-            $andX->add('g.type = :type');
-            $query->setParameter('type', $search->getType());
+        
+        if(null !== $filter->getType()){
+            $query->leftJoin('g.types','t');
+            $andX->add('t = :type');
+            $query->setParameter('type', $filter->getType());
         }
-        if(null !== $search->getCategory()){
-            $andX->add('g.category = :category');
-            $query->setParameter('category', $search->getCategory());
+        if(null !== $filter->getCategory()){
+            $query->leftJoin('g.categories','c');
+            $andX->add('c = :category');
+            $query->setParameter('category', $filter->getCategory());
         }
-        if(null !== $search->getLocality()){
-            $andX->add('g.locality = :locality');
-            $query->setParameter('locality', $search->getLocality());
+        if(null !== $filter->getLocality()){
+            $query->leftJoin('g.localities','l');
+            $andX->add('l = :locality');
+            $query->setParameter('locality', $filter->getLocality());
         }
         
-        if(!empty($search->getType()) || !empty($search->getCategory()) || !empty($search->getLocality()) ){
+        if(!empty($filter->getType()) || !empty($filter->getCategory()) || !empty($filter->getLocality()) ){
             $query->where($andX);
         }
         $query->orderBy('g.id', 'DESC');
@@ -53,4 +73,85 @@ class RecipeRepository extends \Doctrine\ORM\EntityRepository
           ;
         return new Paginator($query, true);
     }
+    
+    public function getRecipesAdmin($page, $nbPerPage)
+    {
+        $role = "ROLE_SUPER_ADMIN";
+        $query = $this->createQueryBuilder('a')
+            ->innerJoin('a.author', 'c')
+            ->addSelect('c')
+            ->where('c.roles LIKE :role')
+            ->setParameter('role', '%' .$role. '%')
+            ->orderBy('a.id', 'DESC')
+            ->getQuery()
+        ;
+        
+        $query
+            ->setFirstResult(($page-1) * $nbPerPage)
+            ->setMaxResults($nbPerPage)
+          ;
+        return new Paginator($query, true);
+    }
+    
+    public function getRecipesUsers($page, $nbPerPage)
+    {
+        $role = "ROLE_SUPER_ADMIN";
+        $query = $this->createQueryBuilder('a')
+            ->innerJoin('a.author', 'c')
+            ->addSelect('c')
+            ->where('c.roles NOT LIKE :role')
+            ->setParameter('role', '%' .$role. '%')
+            ->orderBy('a.id', 'DESC')
+            ->getQuery()
+        ;
+        
+        $query
+            ->setFirstResult(($page-1) * $nbPerPage)
+            ->setMaxResults($nbPerPage)
+          ;
+        return new Paginator($query, true);
+    }
+    
+    public function getRecipesLocal()
+    {
+        $query = $this->createQueryBuilder('a')
+            ->leftJoin('a.categories', 'c')
+            ->addSelect('c')
+            ->where('c.id=3')
+            ->orderBy('a.date', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+        ;
+
+        return $query->getResult();
+    }
+    
+    public function getRecipesVegan()
+    {
+        $query = $this->createQueryBuilder('a')
+             ->leftJoin('a.categories', 'c')
+            ->addSelect('c')
+            ->where('c.id=2')
+            ->orderBy('a.date', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+        ;
+
+        return $query->getResult();
+    }
+    
+    public function getRecipesGluten()
+    {
+        $query = $this->createQueryBuilder('a')
+            ->leftJoin('a.categories', 'c')
+            ->addSelect('c')
+            ->where('c.id=4')
+            ->orderBy('a.date', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+        ;
+
+        return $query->getResult();
+    }
+    
 }

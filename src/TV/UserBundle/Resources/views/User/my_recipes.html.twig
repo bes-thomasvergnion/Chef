@@ -1,0 +1,23 @@
+{% for recipe in user.recipes %}
+    {% if count == 0 or count%3 == 0 %}<div class="row"> {% endif %}
+    {% set count = count + 1 %}
+    <a class="link-recipe" href="{{ path('tv_chef_recipe_view', {'id': recipe.id}) }}">
+        <div class="polaroid recipe{% if loop.index is odd %} left {%else%} right{%endif%} {% if loop.index == 3 or loop.index%3 == 0 %}last{%endif%}">
+            <img class="picture" src="{% if recipe.image.webPath is defined %}{{ asset(recipe.image.webPath) }}{%else%}{{ asset('chef/images/default.jpg') }}{%endif%}" alt="{%if recipe.image.alt is defined%}{{ recipe.image.alt }}{%else%}Default{%endif%}" />
+            <h3>{{ recipe.name }}</h3>
+            <div class="absolute note">
+                {% if recipe.note != null %}
+                    {% for i in 1..recipe.note %}
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="absolute level">
+                {% for i in 1..recipe.level.id %}
+                    <img src="{{ asset('chef/images/level2.png') }}" alt="level">
+                {% endfor %}
+            </div>
+        </div>
+    </a>
+    {% if count == 3 or count%3 == 0 or loop.last %}<div class="clearfix"></div> </div>{% endif %}
+{% endfor %}

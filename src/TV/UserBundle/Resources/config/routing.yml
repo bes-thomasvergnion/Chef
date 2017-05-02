@@ -1,0 +1,58 @@
+tv_user_index:
+    path:    /cuistots/{page}
+    defaults: 
+        _controller: TVUserBundle:User:index
+        page:        1
+    requirements:
+        page: \d*
+        
+tv_user_view:
+    path:    /user/{id}
+    defaults: 
+        _controller: TVUserBundle:User:view
+    requirements:
+        id: \d+
+        
+tv_user_edit:
+    path:      /user/edit/{id}
+    defaults:
+        _controller: TVUserBundle:User:edit
+    requirements:
+        id: \d+
+        
+tv_user_delete:
+    path:      /user/delete/{id}
+    defaults:
+        _controller: TVUserBundle:User:delete
+    requirements:
+        id: \d+
+        
+tv_admin_index:
+    path: /admin
+    defaults: 
+        _controller: TVUserBundle:Admin:index
+        
+tv_admin_recipe_admin:
+    path: /admin/recipe-admin/{page}
+    defaults: 
+        _controller: TVUserBundle:Admin:recipeAdmin
+        page:        1
+    requirements:
+        page: \d*
+        
+tv_admin_recipe_users:
+    path: /admin/recipe-users/{page}
+    defaults: 
+        _controller: TVUserBundle:Admin:recipeUsers
+        page:        1
+    requirements:
+        page: \d*
+        
+tv_admin_users:
+    path: /admin/users/{page}
+    defaults: 
+        _controller: TVUserBundle:Admin:Users
+        page:        1
+    requirements:
+        page: \d*
+    

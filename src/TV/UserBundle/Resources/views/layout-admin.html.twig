@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>{% block title %}ADMIN - Chef @ Home{% endblock %}</title>
+        
+        <link href="{{ asset('chef/css/admin-style.css') }}" rel="stylesheet" type="text/css" media="all" />
+        <link href="{{ asset('chef/css/responsive.css') }}" rel="stylesheet" type="text/css" media="all" />
+        <link href="{{ asset('chef/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" media="all" />
+        <link href="https://fonts.googleapis.com/css?family=Dancing+Script:400,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    </head>
+
+    <body>
+        <header>
+            <div class="connexion">
+                <p>{{ app.user.username }}</p>
+            </div>
+            <img id="logo" src="{{ asset('chef/images/logo.png') }}" alt="Logo" />
+            <h1>Chef <span>@</span> Home</h1>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="{{ path('tv_chef_recipe_add') }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Ajouter Recette</a></li>
+                <li><a href="{{ path('tv_admin_recipe_admin') }}"><i class="fa fa-book" aria-hidden="true"></i> Recettes ADMIN</a></li>
+                <li><a href="{{ path('tv_admin_recipe_users') }}"><i class="fa fa-book" aria-hidden="true"></i> Recettes Utilisateurs</a></li>
+                <li><a href="{{ path('tv_admin_users') }}"><i class="fa fa-users" aria-hidden="true"></i> Utilisateurs</a></li>
+                <li><a href="{{ path('tv_chef_homepage') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Retour au site</a></li>
+            </ul>
+        </nav>tv_admin_recipe_users
+
+        <section>
+            {% block body %}{% endblock %}
+        </section>
+        
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

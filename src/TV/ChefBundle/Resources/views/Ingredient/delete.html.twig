@@ -1,0 +1,21 @@
+{% extends "TVChefBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Supprimer ingrédient
+{% endblock %}
+
+{% block chef_body %}
+    <section class="recipe-single">
+        <div class="container">
+            <h2>Supprimer un ingrédient</h2>
+            <p>Etes-vous certain de vouloir supprimer cet ingrédient ?</p>
+
+            <form action="{{ path('tv_chef_ingredient_delete', {'id': ingredient.id,'id_recipe': recipe.id}) }}" method="post">
+                <a href="{{ path('tv_chef_recipe_view', {'id': ingredient.recipe.id}) }}" class="btn">Retour à la recette</a>
+                <input type="submit" value="Supprimer" class="btn" />
+                {{ form_rest(form) }}
+            </form>         
+        </div>
+        <div class="clearfix"></div>
+    </section>
+{% endblock %}

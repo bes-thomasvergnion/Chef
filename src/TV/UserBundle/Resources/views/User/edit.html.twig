@@ -1,0 +1,43 @@
+{% extends "TVChefBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Modifier profil
+{% endblock %}
+
+{% block chef_body %}
+    
+    <section class="profil form-user">
+        <div class="container">
+            
+            <h2>Modifier Profil</h2>
+            {{ form_start(form, {'attr': {'class': 'form'}}) }}
+
+                {{ form_errors(form) }}
+                
+                <img class="img-recipe-single" src="{{ asset('chef/images/default.jpg') }}" alt="default">
+                
+                <div class="infos">
+                <p>{{ form_label(form.level, "Niveau: ", {'label_attr': {'class': ''}}) }}
+                    {{ form_widget(form.level, {'attr': {'class': ''}}) }}</p>
+                
+                <p>{{ form_label(form.email, "Email: ", {'label_attr': {'class': ''}}) }}
+                    {{ form_widget(form.email, {'attr': {'class': ''}}) }}</p>
+                </div>
+                <div class="clearfix"></div>
+                
+                {{ form_label(form.image, "Photo de profil: ", {'label_attr': {'class': ''}}) }}
+                {{ form_widget(form.image) }}
+
+                {{ form_errors(form.content) }}
+
+                <h3>{{ form_label(form.content, "Description: ", {'label_attr': {'class': ''}}) }}</h3>
+                {{ form_widget(form.content, {'attr': {'class': ''}}) }}
+                
+                {{ form_widget(form.save, { 'label': 'Modifier profil' }) }}
+
+            {{ form_end(form) }}
+        </div>
+    </section>
+    
+{% endblock %}
+{# empty Twig template #}

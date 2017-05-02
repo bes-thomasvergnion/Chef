@@ -4,10 +4,11 @@
     <section class="no-padding">
         <div class="search-box">
             <h2 class="title-search">Trouver une recette:</h2>
-                <form action="search.php" class="search-form">
-                    <input class="search" type="text" placeholder="Rechercher"/>
+            {#<form action="search.php" class="search-form">
+                <input class="search" type="text" placeholder="Rechercher"/>
                 <button type="submit" class="search-btn"><i class="fa fa-search" aria-hidden="true"></i></button>  
-            </form>
+            </form>#}
+            {{ render(controller("TVChefBundle:Search:index",{request: app.request})) }}
         </div>
     </section>
     
