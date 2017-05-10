@@ -1,5 +1,6 @@
 {
     "name": "utilisateur/chef",
+    "description": "différents bundles permettant le bon fonctionnement du site",
     "license": "proprietary",
     "type": "project",
     "autoload": {
