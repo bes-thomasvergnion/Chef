@@ -27,6 +27,20 @@ tv_user_delete:
     requirements:
         id: \d+
         
+tv_user_my_recipes:
+    path:      /user/{id}/my-recipes
+    defaults:
+        _controller: TVUserBundle:User:myRecipes
+    requirements:
+        id: \d+
+        
+tv_user_note:
+    path:      /user/note/{id}
+    defaults:
+        _controller: TVUserBundle:User:note
+    requirements:
+        id: \d+
+        
 tv_admin_index:
     path: /admin
     defaults: 
@@ -51,8 +65,20 @@ tv_admin_recipe_users:
 tv_admin_users:
     path: /admin/users/{page}
     defaults: 
-        _controller: TVUserBundle:Admin:Users
+        _controller: TVUserBundle:Admin:users
         page:        1
+    requirements:
+        page: \d*
+        
+tv_user_follow_index:
+    path: /follow/index
+    defaults:
+        _controller: TVUserBundle:Follow:index
+        
+tv_user_follow_add:
+    path: /follow/user/{id}
+    defaults:
+        _controller: TVUserBundle:Follow:add
     requirements:
         page: \d*
     

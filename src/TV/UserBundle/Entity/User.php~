@@ -48,14 +48,14 @@ class User extends BaseUser
     /**
      * @var integer
      *
-     * @ORM\Column(name="star", type="integer", nullable=true)
+     * @ORM\Column(name="star", type="integer")
      */
     private $star;
     
     /**
      * @var integer
      *
-     * @ORM\Column(name="note_total", type="integer", nullable=true)
+     * @ORM\Column(name="note_total", type="integer")
      */
     private $note_total;
     
@@ -66,37 +66,16 @@ class User extends BaseUser
     private $notes;
     
     /**
-     * @ORM\OneToOne(targetEntity="TV\ChefBundle\Entity\Notebook", mappedBy="user")
+     * @ORM\OneToOne(targetEntity="TV\ChefBundle\Entity\Notebook")
      * @ORM\JoinColumn(nullable=true)
      */
     private $notebook;
-    
-    /**
-     * @ORM\OneToOne(targetEntity="TV\ChefBundle\Entity\Liste", mappedBy="user")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $liste;
-    
-    /**
-     * @ORM\OneToMany(targetEntity="TV\UserBundle\Entity\Follow", mappedBy="follower", cascade={"persist"}, cascade={"remove"})
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $followers;
-    
-    /**
-     * @ORM\OneToMany(targetEntity="TV\UserBundle\Entity\Follow", mappedBy="followed", cascade={"persist"}, cascade={"remove"})
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $followeds;
     
     
     
     public function __construct()
     {
       $this->recipes = new ArrayCollection();
-      $this->notes = new ArrayCollection();
-      $this->followers = new ArrayCollection();
-      $this->followeds = new ArrayCollection();
     }
 
     /**
@@ -246,113 +225,5 @@ class User extends BaseUser
     {
         return $this->note;
     }
-
-    /**
-     * Set noteTotal
-     *
-     * @param integer $noteTotal
-     *
-     * @return User
-     */
-    public function setNoteTotal($noteTotal)
-    {
-        $this->note_total = $noteTotal;
-
-        return $this;
-    }
-
-    /**
-     * Get noteTotal
-     *
-     * @return integer
-     */
-    public function getNoteTotal()
-    {
-        return $this->note_total;
-    }
-
-    /**
-     * Set notebook
-     *
-     * @param \TV\ChefBundle\Entity\Notebook $notebook
-     *
-     * @return User
-     */
-    public function setNotebook(\TV\ChefBundle\Entity\Notebook $notebook = null)
-    {
-        $this->notebook = $notebook;
-        $notebook->setUser($this);
-        return $this;
-    }
-
-    /**
-     * Get notebook
-     *
-     * @return \TV\ChefBundle\Entity\Notebook
-     */
-    public function getNotebook()
-    {
-        return $this->notebook;
-    }
-    
-    /**
-     * Set liste
-     *
-     * @param \TV\ChefBundle\Entity\Liste $liste
-     *
-     * @return User
-     */
-    public function setListe(\TV\ChefBundle\Entity\Liste $liste = null)
-    {
-        $this->liste = $liste;
-        $liste->setUser($this);
-        return $this;
-    }
-
-    /**
-     * Get liste
-     *
-     * @return \TV\ChefBundle\Entity\Liste
-     */
-    public function getListe()
-    {
-        return $this->liste;
-    }
-    
-    public function addFollower(\TV\UserBundle\Entity\Follow $follower)
-    {
-        $this->followers[] = $follower;
-        
-        $follower->setFollower($this);
-        return($this);
-    }
-    
-    public function removeFollower(\TV\UserBundle\Entity\Follow $follower)
-    {
-        $this->followers->removeElement($follower);
-    }
-
-    public function getFollowers()
-    {
-        return $this->followers;
-    }
-    
-    public function addFollowed(\TV\UserBundle\Entity\Follow $followed)
-    {
-        $this->followeds[] = $followed;
-        
-        $followed->setFollowed($this);
-        return $this;
-    }
-    
-    public function removeFollowed(\TV\UserBundle\Entity\Follow $followed)
-    {
-        $this->followeds->removeElement($followed);
-    }
-
-    public function getFolloweds()
-    {
-        return $this->followeds;
-    }
-    
 }
+

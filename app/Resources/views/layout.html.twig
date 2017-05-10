@@ -3,7 +3,6 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width" />
-        <meta name="keywords" content="cuisine, recette, santé, végétalien, local, saison" />
         <meta name="description" content="Chef @ Home est votre site vous permettant d'apprendre à cuisiner tous les types de recettes" />
         <title>{% block title %}Chef @ Home{% endblock %}</title>
         
@@ -12,6 +11,7 @@
         <link href="{{ asset('chef/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" media="all" />
         <link href="https://fonts.googleapis.com/css?family=Dancing+Script:400,700" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
         
         {% block stylesheets %}{% endblock %}
         
@@ -28,7 +28,10 @@
                                 <ul class="menu_connexion">
                                     <li><a href="{{ path('tv_chef_recipe_add') }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Ajouter une recette</a></li>
                                     <li><a href="{{ path('tv_user_view', {'id': app.user.id}) }}"><i class="fa fa-cog" aria-hidden="true"></i> Profil</a></li>
-                                    <li><a href=""><i class="fa fa-users" aria-hidden="true"></i> Vos Recettes</a></li>
+                                    <li><a href="{{ path('tv_user_my_recipes', {'id': app.user.id}) }}"><i class="fa fa-files-o" aria-hidden="true"></i> Mes Recettes</a></li>
+                                    <li><a href="{{ path('tv_user_follow_index') }}"><i class="fa fa-address-book" aria-hidden="true"></i> Mes Cuistots</a></li>
+                                    <li><a href="{{ path('tv_chef_notebook_index') }}"><i class="fa fa-book" aria-hidden="true"></i> Mon carnet</a></li>
+                                    <li><a href="{{ path('tv_chef_liste_index') }}"><i class="fa fa-file-text-o" aria-hidden="true"></i> Ma liste de course</a></li>
                                     {% if is_granted('ROLE_ADMIN')%}
                                         <li><a href="{{ path('tv_admin_index') }}"><i class="fa fa-tachometer" aria-hidden="true"></i> Admin</a></li>
                                     {% endif %}
@@ -130,9 +133,14 @@
             </div>
         </footer>
         
+        <script>
+            var path = "{{ path('tv_chef_search_autocomplete') }}";
+        </script>
         <script src="{{ asset('chef/js/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('chef/js/jquery-ui.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('chef/js/responsive-menu.js') }}" type="text/javascript"></script>
         <script src="{{ asset('chef/js/menu.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('chef/js/search.js') }}" type="text/javascript"></script>
         
         {% block javascripts %}{% endblock %}
     </body>

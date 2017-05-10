@@ -37,13 +37,20 @@ tv_chef_recipe_delete:
     requirements:
         id: \d+
         
+tv_chef_recipe_note:
+    path:    /recipe/note/{id}
+    defaults: 
+        _controller: TVChefBundle:Recipe:note
+    requirements:
+        id: \d+
+        
 tv_chef_filter_select:
     path:      /recipes/select/{page}
     defaults:
         _controller: TVChefBundle:Filter:select
         page:  1
     requirements:
-        _method: POST
+        _method: GET
         page: \d+
 
 tv_chef_search_select:
@@ -54,6 +61,13 @@ tv_chef_search_select:
     requirements:
         _method: POST
         page: \d+
+        
+tv_chef_search_autocomplete:
+    path: /search-autocomplete
+    defaults: 
+        _controller: TVChefBundle:Search:autocomplete
+    requirements:
+        _method: POST
         
 tv_chef_ingredient_add:
     path:    /ingredient/add/{id}
@@ -99,3 +113,50 @@ tv_chef_step_delete:
     requirements:
         id: \d+
         
+tv_chef_notebook_index:
+    path: /recipe/notebook/{page}
+    defaults:
+        _controller: TVChefBundle:Notebook:index
+        page: 1
+    requirements:
+        page: \d+
+        
+tv_chef_notebook_add:
+    path: /recipe/{id}/notebook/add
+    defaults:
+        _controller: TVChefBundle:Notebook:add
+    requirements:
+        id: \d+
+        
+tv_chef_liste_index:
+    path: recipe/liste/
+    defaults:
+        _controller: TVChefBundle:Liste:index
+        
+tv_chef_liste_add:
+    path: /recipe/{id}/liste/add
+    defaults:
+        _controller: TVChefBundle:Liste:add
+    requirements:
+        id: \d+
+        
+tv_chef_liste_delete:
+    path: /liste/delete/{id}
+    defaults:
+        _controller: TVChefBundle:Liste:delete
+    requirements:
+        id: \d+
+        
+tv_chef_liste_delete_ingredient:
+    path: /liste/{id_liste}/delete/ingredient/{id}
+    defaults:
+        _controller: TVChefBundle:Liste:deleteIngredient
+    requirements:
+        id: \d+
+        
+tv_chef_recipe_printable:
+    path: /recipe/{id}/printable
+    defaults:
+        _controller: TVChefBundle:Recipe:printable
+    requirements:
+        id: \d+

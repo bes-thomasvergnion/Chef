@@ -3,17 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp64/www/Chef/src/TV/ChefBundle/Form/FilterType.php</file>
-            <file>file:/C:/wamp64/www/Chef/src/TV/ChefBundle/Entity/Filter.php</file>
-            <file>file:/C:/wamp64/www/Chef/src/TV/ChefBundle/Resources/config/routing.yml</file>
-            <file>file:/C:/wamp64/www/Chef/src/TV/ChefBundle/Controller/IngredientController.php</file>
-            <file>file:/C:/wamp64/www/Chef/web/chef/js/filters.js</file>
-            <file>file:/C:/wamp64/www/Chef/src/TV/ChefBundle/Controller/FilterController.php</file>
-            <file>file:/C:/wamp64/www/Chef/src/TV/ChefBundle/Resources/views/Recipe/view.html.twig</file>
-            <file>file:/C:/wamp64/www/Chef/src/TV/ChefBundle/Resources/views/Pages/filters.html.twig</file>
-            <file>file:/C:/wamp64/www/Chef/src/TV/ChefBundle/Repository/FilterRepository.php</file>
+            <file>file:/C:/wamp64/www/Chef/src/TV/UserBundle/Entity/User.php</file>
+            <file>file:/C:/wamp64/www/Chef/src/TV/UserBundle/Entity/Follow.php</file>
+            <file>file:/C:/wamp64/www/Chef/src/TV/UserBundle/Resources/views/User/my_recipes.html.twig</file>
+            <file>file:/C:/wamp64/www/Chef/src/TV/ChefBundle/Repository/RecipeRepository.php</file>
+            <file>file:/C:/wamp64/www/Chef/src/TV/UserBundle/Resources/views/User/index.html.twig</file>
+            <file>file:/C:/wamp64/www/Chef/src/TV/UserBundle/Resources/views/User/view.html.twig</file>
+            <file>file:/C:/wamp64/www/Chef/src/TV/UserBundle/Resources/config/routing.yml</file>
+            <file>file:/C:/wamp64/www/Chef/src/TV/UserBundle/Controller/FollowController.php</file>
             <file>file:/C:/wamp64/www/Chef/web/chef/css/style.css</file>
-            <file>file:/C:/wamp64/www/Chef/src/TV/ChefBundle/Controller/RecipeController.php</file>
+            <file>file:/C:/wamp64/www/Chef/src/TV/UserBundle/Controller/UserController.php</file>
+            <file>file:/C:/wamp64/www/Chef/src/TV/ChefBundle/Resources/config/routing.yml</file>
+            <file>file:/C:/wamp64/www/Chef/src/TV/UserBundle/Resources/views/User/list.html.twig</file>
+            <file>file:/C:/wamp64/www/Chef/src/TV/UserBundle/Resources/views/User/my_chefs.html.twig</file>
+            <file>file:/C:/wamp64/www/Chef/src/TV/UserBundle/Entity/NoteUser.php</file>
+            <file>file:/C:/wamp64/www/Chef/src/TV/UserBundle/Repository/UserRepository.php</file>
+            <file>file:/C:/wamp64/www/Chef/app/Resources/views/layout.html.twig</file>
         </group>
     </open-files>
 </project-private>

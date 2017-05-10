@@ -1,0 +1,22 @@
+{% extends "TVChefBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Noter Utilisateur
+{% endblock %}
+
+{% block chef_body %}
+    <section  class="recipe-single form">
+        <div class="container">
+            <h2 class="center">Noter Utilisateur</h2>
+                {{ form_start(form, {'attr': {'class': 'form'}}) }}
+                    <div class="error">
+                        {{ form_errors(form) }}
+                    </div>
+                    
+                    {{ form_label(form.value, "Nombre d'étoile(s): ", {'label_attr': {'class': 'label-title'}}) }}
+                    {{ form_widget(form.value, {'attr': {'class': ''}}) }}
+                    {{ form_widget(form.save, { 'label': 'Noter utilisateur', 'attr' : {'class': 'btn' }}) }}
+                {{ form_end(form) }}
+        </div>
+    </section>
+{% endblock %}{# empty Twig template #}

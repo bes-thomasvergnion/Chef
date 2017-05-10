@@ -67,7 +67,7 @@
                     
                     <div class="clearfix"></div>
                     
-                    {{ form_widget(form.image) }}
+                    {{ form_widget(form.image, {'attr': {'class': 'upload-img'}}) }}
                     
                     
                     <div class="categories">
@@ -81,30 +81,8 @@
                         {{ form_widget(form.localities, {'attr': {'class': 'chekbox'}}) }}
                     </div>
 
-                  {#  <h2>Ingrédients: </h2>
-
-                    <div class="ingredients">
-                        
-                        {{ form_widget(form.ingredients, {'attr': {'class': 'ingredients-form'}}) }}
-                       
-                        <a href="#" id="add_ingredient" class="btn btn-default">Ajouter un ingrédient</a>
-                        <div class="clearfix"></div>
-                    </div>
-                    
-                    <h2>Etapes: </h2>
-                    <div class="steps">
-                        
-                        {{ form_widget(form.steps, {'attr': {'class': 'step-form'}}) }}
-                       
-                        <a href="#" id="add_step" class="btn btn-default">Ajouter une étape</a>
-                    </div>#}
-
                     {{ form_widget(form.save, { 'label': 'Ajouter recette', 'attr' : {'class': 'btn' }}) }}
                 {{ form_end(form) }}
         </div>
     </section>
-{% endblock %}
-
-{% block javascripts %}
-    {#<script src="{{ asset('chef/js/form.js') }}" type="text/javascript"></script>#}
 {% endblock %}

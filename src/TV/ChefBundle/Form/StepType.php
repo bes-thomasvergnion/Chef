@@ -30,7 +30,7 @@ class StepType extends AbstractType
                 ->add('video', TextType::class, array('required'  => false,))
                 ->add('timer', TimeType::class, array(
                     'required'  => false,
-                    'widget' => 'text',
+                    'data' => 0,
                     'input' => 'timestamp',
                     'with_seconds' => true,
                     ))

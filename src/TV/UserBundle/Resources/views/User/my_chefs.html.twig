@@ -1,0 +1,41 @@
+{% extends "TVChefBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Mes cuistots
+{% endblock %}
+
+{% block chef_body %}
+
+    <section>
+        <div class="container" id="recipes-container">
+            <h2 class="dancing">Mes cuistots</h2>
+                {% for user in listUsers %}
+                    {% if count == 0 or count%4 == 0 %}<div class="row"> {% endif %}
+                    {% set count = count + 1 %}
+                    <a class="link-cuistot" href="{{ path('tv_user_view', {'id': user.id}) }}">
+                        <div class="polaroid cuistot {% if loop.index is odd %} left {%else%} right{%endif%} {% if loop.index == 3 or loop.index%3 == 0 %}last{%endif%}">
+                            <img src="{% if user.image.webPath is defined %}{{ asset(user.image.webPath) }}{%else%}{{ asset('chef/images/user-default.jpg') }}{%endif%}" alt="{%if user.image.alt is defined%}{{ user.image.alt }}{%else%}Default{%endif%}" />
+                            <h3>{{ user.username }}</h3>
+                            <div class="absolute note">
+                                {% if user.star != 0 %}
+                                    {% for i in 1..user.star %}
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                    </a>
+                    {% if count == 4 or count%4 == 0 or loop.last %}<div class="clearfix"></div> </div>{% endif %}
+                {% else %}
+                    <div>
+                        <h2>Aucun résultat</h2>
+                    </div>
+                {% endfor %}
+                <div class="clearfix"></div>
+            
+        </div>
+        
+    </section>
+    <div class="clearfix"></div>
+{% endblock %}

@@ -1,27 +1,28 @@
-$(function(){
+$(function(){   
     $( "form[name=tv_chefbundle_filter]" )
         .submit(function(e) {
             e.preventDefault();
             $('#recipes-container').html('<img class="loading" src="' + url + '">');
             var form = this;
             var FD  = new FormData(form);
-
+            
             var oReq2 = new XMLHttpRequest();
             oReq2.timeout = 10000;
 
             oReq2.addEventListener("load", function(event) {
                 $('#recipes-container').html(event.target.responseText);
+                listenPagination();
             });
 
             // We define what will happen in case of error
             oReq2.addEventListener("error", function(event) {
                 console.log(event.target); 
-            console.log('Oups! Something goes wrong.');
+                console.log('Oups! Something goes wrong.');
             });
 
             console.log($(form).attr('action'));
 
-            oReq2.open("post",  $(form).attr('action'));
+            oReq2.open("post",  $(form).attr('data-action'));
             oReq2.send(FD);
 
         })
@@ -30,4 +31,22 @@ $(function(){
             $(this).closest('form').trigger('submit');
         })
     ;
-})
+});
+
+function listenPagination(){
+    $('.pagination a').on('click',function(e){
+        e.preventDefault();
+        
+        $('.pagination .active').removeClass('active');
+        $(this).addClass('active');
+        var page = $(this).text();
+        var action =$( "form[name=tv_chefbundle_filter]" )
+                .attr('action') + '?page='+page;
+        console.log(action);
+        // $(this).closest('li').addClass('active');
+        $( "form[name=tv_chefbundle_filter]" )
+                .attr('data-action',action)
+                .trigger('submit');
+        
+    });
+}

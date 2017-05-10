@@ -21,7 +21,6 @@ class RecipeType extends AbstractType
         $builder->add('name', TextType::class)
                 ->add('level', EntityType::class, array(
                     'class' => 'TVChefBundle:Level',
-                    'expanded'     => true,
                     'required'  => true,
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('u')
@@ -67,18 +66,6 @@ class RecipeType extends AbstractType
                 ->add('preparationTime', TextType::class)
                 ->add('timeout', TextType::class)
                 ->add('image', ImageType::class, array('required' => false))
-                ->add('ingredients', CollectionType::class, array(
-                    'entry_type'   => IngredientType::class,
-                    'allow_add'    => true,
-                    'allow_delete' => true,
-                    'label' =>false
-                 ))
-                ->add('steps', CollectionType::class, array(
-                    'entry_type'   => StepType::class,
-                    'allow_add'    => true,
-                    'allow_delete' => true,
-                    'label' =>false
-                 ))
                 
                 ->add('save', SubmitType::class, array(
                         'attr' => array('class' => 'save'),

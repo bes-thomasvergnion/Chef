@@ -37,4 +37,30 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
           ;
         return new Paginator($query, true);
     }
+    
+    public function getNbrNotes($user)
+    {
+        $query = $this->createQueryBuilder('a')
+            ->leftJoin('a.notes', 'c')
+            ->addSelect('COUNT(c)')
+            ->where('c.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+        ;
+
+        return $query->getSingleResult();
+    }
+    
+    public function getFolloweds($user)
+    {
+        $query = $this->createQueryBuilder('a')
+            ->leftJoin('a.followeds', 'c')
+            ->addSelect('c')
+            ->where('c.follower = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+        ;
+        
+        return $query->getResult();
+    }
 }

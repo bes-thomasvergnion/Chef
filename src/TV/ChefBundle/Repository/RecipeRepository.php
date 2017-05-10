@@ -11,6 +11,46 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class RecipeRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function listeRecipes($term)
+    {
+        $qb = $this->createQueryBuilder('c');
+         
+        $qb ->select('c.name')
+            ->where('c.name LIKE :term')
+            ->setParameter('term', '%'.$term.'%');
+         
+        $arrayAss= $qb->getQuery()
+                   ->getArrayResult();
+         
+        // Transformer le tableau associatif en un tableau standard
+        $array = array();
+        foreach($arrayAss as $data)
+        {
+            $array[] = $data['name'];
+        }
+     
+        return $array;
+        
+//        $qb = $this->createQueryBuilder('a')
+//            ->where('a.name LIKE :search')
+//            ->setParameter('search', '%' .$term. '%')
+//            ->orderBy('a.id', 'DESC')
+//            ->getQuery()
+//        ;
+//        $arrayAss= $qb->getQuery()
+//                    ->getArrayResult();
+//         
+//        // Transformer le tableau associatif en un tableau standard
+//        $array = array();
+//        foreach($arrayAss as $data)
+//        {
+//            $array[] = $data['name'];
+//        }
+//     
+//        return $array;
+        
+    }
+    
     public function getRecipes($page, $nbPerPage)
     {
         $query = $this->createQueryBuilder('a')
@@ -25,11 +65,11 @@ class RecipeRepository extends \Doctrine\ORM\EntityRepository
         return new Paginator($query, true);
     }
     
-    public function getRecipesWithSearch($search, $page, $nbPerPage)
+    public function getRecipesWithSearch(\TV\ChefBundle\Entity\Search $search, $page, $nbPerPage)
     {
         $query = $this->createQueryBuilder('a')
             ->where('a.name LIKE :search')
-            ->setParameter('search', '%' .$search. '%')
+            ->setParameter('search', '%' .$search->getValue(). '%')
             ->orderBy('a.id', 'DESC')
             ->getQuery()
         ;
@@ -152,6 +192,37 @@ class RecipeRepository extends \Doctrine\ORM\EntityRepository
         ;
 
         return $query->getResult();
+    }
+    
+    public function getNbrNotes($recipe)
+    {
+        $query = $this->createQueryBuilder('a')
+            ->leftJoin('a.notes', 'c')
+            ->addSelect('COUNT(c)')
+            ->where('c.recipe = :recipe')
+            ->setParameter('recipe', $recipe)
+            ->getQuery()
+        ;
+
+        return $query->getSingleResult();
+    }
+    
+    public function getRecipesOfNotebook($page, $nbPerPage, $user)
+    {
+        $query = $this->createQueryBuilder('a')
+            ->leftJoin('a.notebooks', 'c')
+            ->addSelect('c')
+            ->where('c.user = :user')
+            ->setParameter('user', $user)
+            
+            ->getQuery()
+        ;
+        
+        $query
+            ->setFirstResult(($page-1) * $nbPerPage)
+            ->setMaxResults($nbPerPage)
+          ;
+        return new Paginator($query, true);
     }
     
 }

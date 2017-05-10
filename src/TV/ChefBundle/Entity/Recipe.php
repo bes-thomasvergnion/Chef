@@ -47,13 +47,6 @@ class Recipe
      * @ORM\JoinColumn(nullable=false)
      */
     private $level;
-    
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="note", type="integer", nullable=true)
-     */
-    private $note;
 
     /**
      * @var int
@@ -90,6 +83,26 @@ class Recipe
     private $image;
     
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="star", type="integer", nullable=true)
+     */
+    private $star;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="note_total", type="integer", nullable=true)
+     */
+    private $note_total;
+    
+     /**
+     * @ORM\OneToMany(targetEntity="TV\ChefBundle\Entity\Note", mappedBy="recipe", cascade={"persist"}, cascade={"remove"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $notes;
+    
+    /**
      * @ORM\OneToMany(targetEntity="TV\ChefBundle\Entity\Ingredient", mappedBy="recipe", cascade={"persist"}, cascade={"remove"})
      * @ORM\JoinColumn(nullable=true)
      */
@@ -119,6 +132,12 @@ class Recipe
      */
     private $localities;
     
+    /**
+     * @ORM\ManyToMany(targetEntity="TV\ChefBundle\Entity\Notebook", mappedBy="recipes", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $notebooks;
+    
     public function __construct()
     {
         $this->date = new \Datetime();
@@ -127,6 +146,7 @@ class Recipe
         $this->types = new ArrayCollection();
         $this->categories = new ArrayCollection();
         $this->localities = new ArrayCollection();
+        $this->notes = new ArrayCollection();
     }
 
     /**
@@ -168,7 +188,7 @@ class Recipe
      *
      * @param \DateTime $date
      *
-     * @return Advert
+     * @return Recipe
      */
     public function setDate($date)
     {
@@ -191,7 +211,7 @@ class Recipe
      *
      * @param string $author
      *
-     * @return Advert
+     * @return Recipe
      */
     public function setAuthor($author)
     {
@@ -230,30 +250,6 @@ class Recipe
     public function getLevel()
     {
         return $this->level;
-    }
-    
-    /**
-     * Set note
-     *
-     * @param integer $note
-     *
-     * @return Recipe
-     */
-    public function setNote($note)
-    {
-        $this->note = $note;
-
-        return $this;
-    }
-
-    /**
-     * Get note
-     *
-     * @return int
-     */
-    public function getNote()
-    {
-        return $this->note;
     }
 
     /**
@@ -373,6 +369,72 @@ class Recipe
     {
         return $this->image;
     }
+    
+    /**
+     * Set star
+     *
+     * @param integer $star
+     *
+     * @return Recipe
+     */
+    public function setStar($star)
+    {
+        $this->star = $star;
+
+        return $this;
+    }
+
+    /**
+     * Get star
+     *
+     * @return integer
+     */
+    public function getStar()
+    {
+        return $this->star;
+    }
+    
+    /**
+     * Set note_total
+     *
+     * @param integer $note_total
+     *
+     * @return Recipe
+     */
+    public function setNote_total($note_total)
+    {
+        $this->note_total = $note_total;
+
+        return $this;
+    }
+
+    /**
+     * Get note_total
+     *
+     * @return integer
+     */
+    public function getNote_total()
+    {
+        return $this->note_total;
+    }
+    
+    public function addNote(Note $note)
+    {
+        $this->notes[] = $note;
+        
+        $note->setRecipe($this);
+        return($this);
+    }
+    
+    public function removeNote(Note $note)
+    {
+        $this->notes->removeElement($note);
+    }
+
+    public function getNotes()
+    {
+        return $this->note;
+    }
 
     public function addStep(Step $step)
     {
@@ -453,6 +515,21 @@ class Recipe
     public function getLocalities()
     {
         return $this->localities;
+    }
+    
+    public function addNotebook(Notebook $notebook)
+    {
+        $this->notebooks[] = $notebook;
+    }
+
+    public function removeNotebook(Notebook $notebook)
+    {
+        $this->notebooks->removeElement($notebook);
+    }
+
+    public function getNotebooks()
+    {
+        return $this->notebooks;
     }
 }
 

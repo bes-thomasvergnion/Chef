@@ -1,13 +1,13 @@
 {% extends "TVChefBundle::layout.html.twig" %}
 
 {% block title %}
-    {{ parent() }} - Recherche
+    {{ parent() }} - Recettes
 {% endblock %}
 
 {% block chef_body %}
     <section>
         <div class="container" id="recipes-container">
-            <h2 class="dancing">Résultats de votre recherche:</h2>
+            <h2 class="dancing">Mon Carnet</h2>
             {% for recipe in listRecipes %}
                 {% if count == 0 or count%3 == 0 %}<div class="row"> {% endif %}
                 {% set count = count + 1 %}
@@ -41,7 +41,7 @@
                     <ul class="pagination">
                         {% for p in range(1, nbPages) %}
                             <li{% if p == page %} class="active"{% endif %}>
-                                <a href="{{ path('tv_chef_search_select', {'page': p}) }}">{{ p }}</a>
+                                <a href="{{ path('tv_chef_recipe_index', {'page': p}) }}">{{ p }}</a>
                             </li>
                         {% endfor %}
                     </ul>

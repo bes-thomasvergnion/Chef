@@ -71,7 +71,7 @@ class AdminController extends Controller
     /**
     * @Security("has_role('ROLE_ADMIN')")
     */
-    public function UsersAction($page)
+    public function usersAction($page)
     {
         if ($page < 1) {
             throw $this->createNotFoundException("La page ".$page." n'existe pas.");

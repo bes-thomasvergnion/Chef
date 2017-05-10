@@ -11,9 +11,11 @@
             <img class="img-recipe-single" src="{% if recipe.image.webPath is defined %}{{ asset(recipe.image.webPath) }}{%else%}{{ asset('chef/images/default.jpg') }}{%endif%}" alt="{% if recipe.image.alt is defined %}{{ recipe.image.alt }}{%else%}Default{%endif%}">
             <div class="infos">
                 <p class="score">Note: 
-                    {% for i in 1..recipe.note %}
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                    {% endfor %}
+                    {% if recipe.star != 0 %}
+                        {% for i in 1..recipe.star %}
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        {% endfor %}
+                    {% endif %}
                 </p>
                 <div class="level-single">
                     <p>Difficulté: </p>
@@ -39,14 +41,14 @@
                 </div>
             </div>
             <div class="buttons">
-                {% if currentUser == recipe.author %}
+                {% if currentUser == recipe.author or is_granted('ROLE_ADMIN') %}
                     <a class="btn" href="{{ path('tv_chef_recipe_edit', {'id': recipe.id}) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modifer recette</a>
                 {% else %}
-                    <a class="btn" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Noter</a>
-                    <a class="btn big btn-right" href="#"><i class="fa fa-book" aria-hidden="true"></i> Ajouter au carnet</a>
+                    <a class="btn" href="{{ path('tv_chef_recipe_note', {'id': recipe.id}) }}"><i class="fa fa-star" aria-hidden="true"></i> Noter</a>
+                    <a class="btn big btn-right" href="{{ path('tv_chef_notebook_add', {'id': recipe.id}) }}"><i class="fa fa-book" aria-hidden="true"></i> Ajouter au carnet</a>
                 {% endif %}
-                <a class="btn big" href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Liste de course</a>
-                <a class="btn btn-right last" href="#"><i class="fa fa-print" aria-hidden="true"></i> Imprimer</a>
+                <a class="btn big" href="{{ path('tv_chef_liste_add', {'id': recipe.id}) }}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Liste de course</a>
+                <a class="btn btn-right last" href="{{ path('tv_chef_recipe_printable', {'id': recipe.id}) }}"><i class="fa fa-print" aria-hidden="true"></i> Imprimer</a>
             </div>
             <div class="clearfix"></div>
 
@@ -56,31 +58,31 @@
                 <h3 class="title-box">Minuteurs:</h3>
                 <div class="timers">
                     {% for step in recipe.steps %}
-                        <i class="fa fa-play-circle btn-timer paused" aria-hidden="true"></i>	
-                        <p id="timer1" class="timer first-p" data-timer-seconds="{{ step.timer }}"> {{ step.timer }} </p>
+                        {% if step.timer != 0 %}
+                            <i class="fa fa-play-circle btn-timer paused launched" aria-hidden="true"></i>	
+                            <p id="timer1" class="timer first-p" data-timer-seconds="{{ step.timer }}"> </p>
+                        {% endif %}
                     {% endfor %}
-                    {#<i class="fa fa-play-circle btn-timer paused" aria-hidden="true"></i>	
-                    <p id="timer1" class="timer first-p"> 00:00:20 </p>
-                    <i class="fa fa-play-circle btn-timer paused" aria-hidden="true"></i>
-                    <p class="timer last-p"> 00:02:00 </p>#}
                 </div>
             </aside>
 
             <div class="ingredients">
 
                 {% for ingredient in recipe.ingredients %}
-                    {% if loop.index==1 or loop.index%6==0 %}<ul>{% endif %}
+                    {% if loop.index==1 or loop.index%6==0 or loop.index%11==0%}<ul>{% endif %}
                         <li>
-                            - {{ ingredient.quantity }}{% if ingredient.typequantity is not null %}{{ ingredient.typequantity.name }}{% endif %} {{ ingredient.name }} 
-                            <a class="btn little blue" href="{{ path('tv_chef_ingredient_edit', {'id': ingredient.id, 'id_recipe': recipe.id}) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                            <a class="btn little red" href="{{ path('tv_chef_ingredient_delete', {'id': ingredient.id, 'id_recipe': recipe.id}) }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            - {{ ingredient.quantity }}{% if ingredient.typequantity is not null %}{{ ingredient.typequantity.name }}{% endif %} {{ ingredient.name }}
+                            {% if currentUser == recipe.author or is_granted('ROLE_ADMIN') %}
+                                <a class="btn little blue" href="{{ path('tv_chef_ingredient_edit', {'id': ingredient.id, 'id_recipe': recipe.id}) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                <a class="btn little red" href="{{ path('tv_chef_ingredient_delete', {'id': ingredient.id, 'id_recipe': recipe.id}) }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            {% endif %}
                         </li>
                     {% if loop.index == 5 or loop.index%5==0 or loop.last%}</ul>{% endif %}
                 {% endfor %}
 
                 <div class="clearfix"></div>
             </div>
-            {% if currentUser == recipe.author %}
+            {% if currentUser == recipe.author or is_granted('ROLE_ADMIN') %}
                 <a class="btn bottom" href="{{ path('tv_chef_ingredient_add', {'id': recipe.id}) }}"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter ingrédient</a>
             {% endif %}
             
@@ -90,22 +92,24 @@
                 {% for step in recipe.steps %}
                     {% set count = count + 1 %}
                     <div class="step">
-                        <h4>Etape {{count}} - {{ step.name }} 
-                            <a class="btn little blue" href="{{ path('tv_chef_step_edit', {'id': step.id, 'id_recipe': recipe.id}) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                            <a class="btn little red" href="{{ path('tv_chef_step_delete', {'id': step.id, 'id_recipe': recipe.id}) }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                        <h4>Etape {{count}} - {{ step.name }}
+                            {% if currentUser == recipe.author or is_granted('ROLE_ADMIN') %}
+                                <a class="btn little blue" href="{{ path('tv_chef_step_edit', {'id': step.id, 'id_recipe': recipe.id}) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                <a class="btn little red" href="{{ path('tv_chef_step_delete', {'id': step.id, 'id_recipe': recipe.id}) }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            {% endif %}
                         </h4>
                         
                         {% if step.image.webPath is defined %}
                             <img class="img-step" src="{{ asset(step.image.webPath) }}" alt="{{ step.image.alt }}">
                         {% endif %}
-                        {% if step.video is not null %}<div class="clearfix"></div> <iframe src="https://www.youtube.com/embed/q8_IQlbLygA" allowfullscreen></iframe> {% endif %}
+                        {% if step.video is not null %}<div class="clearfix"></div> <iframe src="{{ step.video }}" allowfullscreen></iframe> {% endif %}
                         <p>{{ step.content }}</p>
                         <div class="clearfix"></div>
                     </div>
                     <div class="clearfix"></div>
                 {% endfor %}
                 
-                {% if currentUser == recipe.author %}
+                {% if currentUser == recipe.author or is_granted('ROLE_ADMIN') %}
                     <a class="btn" href="{{ path('tv_chef_step_add', {'id': recipe.id}) }}"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter étape</a>
                 {% endif %}
                     

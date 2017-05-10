@@ -10,9 +10,6 @@
             <h2 class="center">Ajouter une étape</h2>
                 {{ form_start(form, {'attr': {'class': 'form'}}) }}
 
-                    {# Les erreurs générales du formulaire. #}
-                    {{ form_errors(form) }}
-
                     <div class="error">
                         {{ form_errors(form) }}
                     </div>
@@ -21,12 +18,18 @@
                         {{ form_widget(form.name, {'attr': {'class': ''}}) }}
                     </div>
                     
-                    <div class="box-img">
+                    <p>Vous pouvez rajouter une image ou une vidéo à votre étape:
+                        <a type="radio" class="btn btn-radio btn-img" name="choice" value="image"> Image</a>
+                        <a type="radio" class="btn btn-radio btn-video" name="choice" value="video"> Vidéo</a>
+                    </p>
+                   
+                    
+                    <div class="box-upload box-img">
                         <img class="img-recipe-single min" src="{{ asset('chef/images/default.jpg') }}" alt="default">
-                        {{ form_widget(form.image, {'attr': {'class': 'no-border'}}) }}
+                        {{ form_widget(form.image, {'attr': {'class': 'upload-img'}}) }}
                     </div>
                     
-                    <div class="box-img">
+                    <div class="box-upload box-video disable">
                         <img class="img-recipe-single min" src="{{ asset('chef/images/default-video.jpg') }}" alt="default"> <br>
                         {{ form_label(form.video, "URL youtube: ", {'label_attr': {'class': ''}}) }}
                         {{ form_widget(form.video, {'attr': {'class': ''}}) }}
@@ -50,4 +53,8 @@
                 {{ form_end(form) }}
         </div>
     </section>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('chef/js/radio.js') }}" type="text/javascript"></script>
 {% endblock %}

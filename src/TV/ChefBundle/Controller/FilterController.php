@@ -26,7 +26,7 @@ class FilterController extends Controller
             $filter->setLocality($locality);
         }
             
-        $form = $this->get('form.factory')->create(FilterType::class, $filter, ['action'=>$this->generateUrl('tv_chef_filter_select',[], \Symfony\Component\Routing\Router::ABSOLUTE_URL)]);
+        $form = $this->get('form.factory')->create(FilterType::class, $filter, ['method'=>'GET','action'=>$this->generateUrl('tv_chef_filter_select',[], \Symfony\Component\Routing\Router::ABSOLUTE_URL),'attr'=>['data-action'=>$this->generateUrl('tv_chef_filter_select',[], \Symfony\Component\Routing\Router::ABSOLUTE_URL)]]);
        
         return $this->render('TVChefBundle:Pages:filters.html.twig', array(
             'form' => $form->createView(),
@@ -34,21 +34,22 @@ class FilterController extends Controller
     }
     
     public function selectAction(Request $request, $page)
-    {
+    {       
         $filter = new Filter();
-        $form = $this->createForm(FilterType::class, $filter);
-        $nbPerPage = 6;
+        $form = $this->createForm(FilterType::class, $filter,['action'=>$this->generateUrl('tv_chef_filter_select')]);
+        $nbPerPage = 18;
         $count = 0;
-       
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+               
+        if ( $form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($filter);
             $em->flush();
         }
+        
         $listRecipes = $this->getDoctrine()
             ->getManager()
             ->getRepository('TVChefBundle:Recipe')
-            ->getRecipesWithFilters($filter, $page, $nbPerPage)
+            ->getRecipesWithFilters($filter, $request->query->get('page') !== null ? $request->query->get('page') : 1, $nbPerPage)
         ;
         $nbPages = ceil(count($listRecipes)/$nbPerPage);
         

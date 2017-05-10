@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="keywords" content="cuisine, recette, santé, végétalien, local, saison" />
+        <meta name="description" content="Chef @ Home est votre site vous permettant d'apprendre à cuisiner tous les types de recettes" />
+        <title>{% block title %}Chef @ Home{% endblock %}</title>
+        
+        <link href="{{ asset('chef/css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
+        <link href="{{ asset('chef/css/responsive.css') }}" rel="stylesheet" type="text/css" media="all" />
+        <link href="{{ asset('chef/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" media="all" />
+        <link href="https://fonts.googleapis.com/css?family=Dancing+Script:400,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+        
+    </head>
+
+    <body>
+        <section class="recipe-single printable">
+            <div class="container">
+                <h2>{{ recipe.name }}</h2>
+                <img class="img-recipe-single" src="{% if recipe.image.webPath is defined %}{{ asset(recipe.image.webPath) }}{%else%}{{ asset('chef/images/default.jpg') }}{%endif%}" alt="{% if recipe.image.alt is defined %}{{ recipe.image.alt }}{%else%}Default{%endif%}">
+                <div class="infos">
+                    <p class="score">Note: 
+                        {% if recipe.star != 0 %}
+                            {% for i in 1..recipe.star %}
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            {% endfor %}
+                        {% endif %}
+                    </p>
+                    <p>Difficulté: {{ recipe.level.name }} </p>
+                    <p>Posté par: {{ recipe.author }}</p>
+                    <a class="btn" id="print" href="#"><i class="fa fa-print" aria-hidden="true"></i> Imprimer cette page</a>
+
+                </div>
+                <div class="responsive-clear"></div>
+                <div class="guide">
+                    <h3>Guide de préparation: </h3>
+                    <ul>
+                        <li><i class="fa fa-users" aria-hidden="true"></i> Nbr personne: {{recipe.nbOfPers}}</li>
+                        <li><i class="fa fa-free-code-camp" aria-hidden="true"></i> Temps de cuisson: {{recipe.cookingTime}} min</li>
+                        <li><i class="fa fa-clock-o" aria-hidden="true"></i> Temps de préparation: {{recipe.preparationTime}} min</li>
+                        <li><i class="fa fa-pause-circle-o" aria-hidden="true"></i> Temps de repos: {{recipe.timeout}} min</li>
+                    </ul>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <h2>Ingrédients: </h2>
+                <div class="ingredients">
+                    {% for ingredient in recipe.ingredients %}
+                        {% if loop.index==1 or loop.index%6==0 or loop.index%11==0%}<ul>{% endif %}
+                            <li>- {{ ingredient.quantity }}{% if ingredient.typequantity is not null %}{{ ingredient.typequantity.name }}{% endif %} {{ ingredient.name }}</li>
+                        {% if loop.index == 5 or loop.index%5==0 or loop.last%}</ul>{% endif %}
+                    {% endfor %}
+
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="steps">
+                    <h2>Etapes: </h2>
+                    {% set count = 0 %}
+                    {% for step in recipe.steps %}
+                        {% set count = count + 1 %}
+                        <div class="step">
+                            <h4>Etape {{count}} - {{ step.name }}</h4>
+                            <p>{{ step.content }}</p>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </section>
+        <script src="{{ asset('chef/js/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
+        <script>
+            $(document).ready(function(){
+                $('#print').click(function(e){
+                    $('#print').toggleClass('invisible');
+                    e.preventDefault();
+                    window.print();
+                });
+            });
+        </script>
+    </body>
+</html>
+
+
+
+
+

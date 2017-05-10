@@ -1,0 +1,35 @@
+{% extends "TVChefBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Liste de course
+{% endblock %}
+
+{% block chef_body %}
+    <section>
+        <div class="container" id="recipes-container">
+            <div class="shopping">
+                <h2 class="dancing">Ma Liste de Course</h2>
+
+                {% for ingredient in liste.ingredients %}
+                    {% if loop.index==1 or loop.index%31==0 %}<ul>{% endif %}
+                        <li>
+                            {{ ingredient.quantity }}{% if ingredient.typequantity is not null %}{{ ingredient.typequantity.name }}{% endif %} {{ ingredient.name }}
+                            {% if user == liste.user or is_granted('ROLE_ADMIN') %}
+                                <a class="btn little red" href="{{ path('tv_chef_liste_delete_ingredient', {'id': ingredient.id, 'id_liste': liste.id}) }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            {% endif %}
+                        </li>
+                    {% if loop.index == 30 or loop.index%30==0 or loop.last%}</ul>{% endif %}
+                {% else %}
+                    <div>
+                        <h2>Aucun ingédient</h2>
+                    </div>
+                {% endfor %}
+
+                <a class="btn" href="{{ path('tv_chef_liste_delete', {'id': liste.id}) }}"><i class="fa fa-trash" aria-hidden="true"></i> Supprimer liste de course</a>
+            
+            </div>    
+        </div>
+        
+    </section>
+    <div class="clearfix"></div>
+{% endblock %}{# empty Twig template #}

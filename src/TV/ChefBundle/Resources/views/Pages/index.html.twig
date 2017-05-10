@@ -34,8 +34,8 @@
                         <img class="picture" src="{% if recipe.image.webPath is defined %}{{ asset(recipe.image.webPath) }}{%else%}{{ asset('chef/images/default.jpg') }}{%endif%}" alt="{%if recipe.image.alt is defined%}{{ recipe.image.alt }}{%else%}Default{%endif%}" />
                         <h3>{{ recipe.name }}</h3>
                         <div class="absolute note">
-                            {% if recipe.note != null %}
-                                {% for i in 1..recipe.note %}
+                            {% if recipe.star != 0 %}
+                                {% for i in 1..recipe.star %}
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                 {% endfor %}
                             {% endif %}
@@ -67,8 +67,8 @@
                         <img class="picture" src="{% if recipe.image.webPath is defined %}{{ asset(recipe.image.webPath) }}{%else%}{{ asset('chef/images/default.jpg') }}{%endif%}" alt="{%if recipe.image.alt is defined%}{{ recipe.image.alt }}{%else%}Default{%endif%}" />
                         <h3>{{ recipe.name }}</h3>
                         <div class="absolute note">
-                            {% if recipe.note != null %}
-                                {% for i in 1..recipe.note %}
+                            {% if recipe.star != 0 %}
+                                {% for i in 1..recipe.star %}
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                 {% endfor %}
                             {% endif %}
@@ -100,8 +100,8 @@
                         <img class="picture" src="{% if recipe.image.webPath is defined %}{{ asset(recipe.image.webPath) }}{%else%}{{ asset('chef/images/default.jpg') }}{%endif%}" alt="{%if recipe.image.alt is defined%}{{ recipe.image.alt }}{%else%}Default{%endif%}" />
                         <h3>{{ recipe.name }}</h3>
                         <div class="absolute note">
-                            {% if recipe.note != null %}
-                                {% for i in 1..recipe.note %}
+                            {% if recipe.star != 0 %}
+                                {% for i in 1..recipe.star %}
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                 {% endfor %}
                             {% endif %}

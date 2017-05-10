@@ -33,6 +33,11 @@ class StepController extends Controller
             if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
                 $recipe->addStep($step);
                 $em->persist($step);
+                
+                $video = $step->getVideo();
+                $video_preg = preg_replace('#watch\?v=#', "embed/", $video);
+                $step->setVideo($video_preg);
+                
                 $em->flush();
                 $request->getSession()->getFlashBag()->add('notice', 'Recette bien modifiée.');
                 return $this->redirectToRoute('tv_chef_recipe_view', array('id' => $recipe->getId()));

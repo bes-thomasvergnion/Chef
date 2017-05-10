@@ -15,20 +15,25 @@
             <div class="infos">
                 <ul>
                     <li>Niveau: {% if user.level.name is defined %} {{ user.level.name }} {% else %} Incomplet {% endif %}</li>
-                    <li>Note: <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></li>
-                    <li>Recettes réalisés: 9</li>
-                    <li>Followers: 14</li>
+                    <li>Note: 
+                    {% if user.star != 0 %}
+                        {% for i in 1..user.star %}
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        {% endfor %}
+                    {% endif %}
+                    <li>Recettes réalisés: {{ user.recipes|length }}</li>
+                    <li>Followers: {{ user.followeds|length }}</li>
                 </ul>
 
                 <div class="buttons">
-                    <a id="btn-recipes" class="btn" href="#"><i class="fa fa-book" aria-hidden="true"></i> Voir mes recettes</a>
+                    <a id="btn-recipes" class="btn" href="{{ path('tv_user_my_recipes', {'id': user.id}) }}"><i class="fa fa-book" aria-hidden="true"></i> Voir mes recettes</a>
                     {% if currentUser == user %}
                     <a class="btn" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modifier profil</a>
                     <a class="btn" href="#"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Supprimer compte</a>
                     
                     {% else %}
-                    <a class="btn" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Noter</a>
-                    <a class="btn" href="#"><i class="fa fa-share" aria-hidden="true"></i> Me suivre</a>
+                    <a class="btn" href="{{ path('tv_user_note', {'id': user.id}) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Noter</a>
+                    <a class="btn" href="{{ path('tv_user_follow_add', {'id': user.id}) }}"><i class="fa fa-share" aria-hidden="true"></i> Me suivre</a>
                     {% endif %}
                     
                 </div>
@@ -38,11 +43,6 @@
             <div class="description">
                 <h3 class="big-h3">Descriptif: </h3>
                 <p>{{ user.content }}</p>
-            </div>
-            
-            <div class="my-recipes">
-                <h3 class="big-h3">Mes recettes: </h3>
-                {% include("TVUserBundle:User:my_recipes.html.twig") %}
             </div>
         </div>
     </section>      

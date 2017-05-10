@@ -1,10 +1,11 @@
-{{ form_start(form, {'attr': {'class': 'search-form'}}) }}
+{#{{ form_start(form, ) }}#}
+{{ form_start(form, {'action': path('tv_chef_search_select'), 'method': 'POST', 'attr': {'class': 'search-form'}} ) }}
 
     {# Les erreurs générales du formulaire. #}
     {{ form_errors(form) }}
     
-    {{ form_widget(form.value, {'attr': {'class': 'search'}}) }}
+    {{ form_widget(form.value, {'attr': {'class': 'search', 'id': 'search_value'}}) }}
     
-    {{ form_widget(form.save, { 'label': '<i class="fa fa-search" aria-hidden="true"></i>' }) }}
+    <button type="submit" class="search-btn"><i class="fa fa-search" aria-hidden="true"></i></button>
     
 {{ form_end(form) }}

@@ -42,16 +42,16 @@ class Ingredient
     private $typequantity;
     
     /**
-     * @ORM\ManyToOne(targetEntity="TV\ChefBundle\Entity\Recipe", inversedBy="ingredients")
+     * @ORM\ManyToOne(targetEntity="TV\ChefBundle\Entity\Recipe", inversedBy="steps")
      * @ORM\JoinColumn(nullable=false)
      */
     private $recipe;
     
     /**
-     * @ORM\ManyToOne(targetEntity="TV\ChefBundle\Entity\Liste", inversedBy="ingredients")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\ManyToOne(targetEntity="TV\ChefBundle\Entity\Recipe", inversedBy="steps")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $liste;
+    private $list;
 
     
 
@@ -162,28 +162,5 @@ class Ingredient
         return $this->typequantity;
     }
     
-
-    /**
-     * Set liste
-     *
-     * @param \TV\ChefBundle\Entity\Liste $liste
-     *
-     * @return Ingredient
-     */
-    public function setListe(\TV\ChefBundle\Entity\Liste $liste)
-    {
-        $this->liste = $liste;
-
-        return $this;
-    }
-
-    /**
-     * Get liste
-     *
-     * @return \TV\ChefBundle\Entity\Liste
-     */
-    public function getListe()
-    {
-        return $this->liste;
-    }
 }
+

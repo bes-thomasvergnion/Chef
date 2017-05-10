@@ -5,6 +5,8 @@ use TV\UserBundle\Form\UserEditType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
+use TV\UserBundle\Form\NoteUserType;
+use TV\UserBundle\Entity\NoteUser;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class UserController extends Controller
@@ -18,6 +20,7 @@ class UserController extends Controller
         $titlePage = 'Les Cuistots';
         $count = 0;
         $nbPerPage = 15;
+        
         $listUsers = $this->getDoctrine()
             ->getManager()
             ->getRepository('TVUserBundle:User')
@@ -112,7 +115,7 @@ class UserController extends Controller
             $em->remove($user);
             $em->flush();
             $request->getSession()->getFlashBag()->add('info', "L'utilisateur a bien été supprimée.");
-            return $this->redirectToRoute('tv_findyourband_homepage');
+            return $this->redirectToRoute('tv_chef_homepage');
         }
         return $this->render('TVUserBundle:User:delete.html.twig', array(
             'user' => $user,
@@ -120,26 +123,13 @@ class UserController extends Controller
         ));
     }
        
-    public function yourBandsAction($id)
+    public function myRecipesAction($id)
     {
         $count = 0;
         
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('TVUserBundle:User')->find($id);
-        return $this->render('TVUserBundle:User:yourbands.html.twig', array(
-            'count' => $count,
-            'user' => $user,
-        ));
-    }
-    
-    public function yourAdvertsAction($id)
-    {
-        $count = 0;
-        
-        $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository('TVUserBundle:User')->find($id);
-      
-        return $this->render('TVUserBundle:User:youradverts.html.twig', array(
+        return $this->render('TVUserBundle:User:my_recipes.html.twig', array(
             'count' => $count,
             'user' => $user,
         ));
@@ -171,5 +161,61 @@ class UserController extends Controller
             'user' => $user,
             'form'   => $form->createView(),
         ));
+    }
+    
+    /**
+    * @Security("has_role('ROLE_USER')")
+    */
+    public function noteAction($id, Request $request)
+    {
+        $note = new NoteUser();
+        
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('TVUserBundle:User')->find($id);
+        
+        $note->setAuthor($this->container->get('security.token_storage')->getToken()->getUser());
+        $note->setUser($user);
+        
+        $form = $this->get('form.factory')->create(NoteUserType::class, $note);
+        
+        $currentUser = $this->container->get('security.token_storage')->getToken()->getUser();
+        
+        if($currentUser != $user || $this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
+            if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($note);
+
+                $nbr_notes = $this->getDoctrine()
+                    ->getManager()
+                    ->getRepository('TVUserBundle:User')
+                    ->getNbrNotes($user)
+                ;
+
+                $value_note = $note->getValue();
+
+                if($nbr_notes[1] != 0){
+                    $note_total = $user->getNote_total();
+                    $note_total = $note_total + $value_note ;
+                    $user->setNote_total($note_total);
+                    $star = $note_total / ($nbr_notes[1] + 1);
+                    $user->setStar($star);
+                }
+                else{
+                    $user->setNote_total($value_note);
+                    $user->setStar($value_note);
+                }
+
+                $em->flush();
+
+                $request->getSession()->getFlashBag()->add('notice', 'Note bien enregistrée.');
+                return $this->redirectToRoute('tv_user_view', array('id' => $user->getId()));
+            }
+        }
+        
+        return $this->render('TVUserBundle:User:note.html.twig', array(
+            'form' => $form->createView(),
+        ));
+        
     }
 }
