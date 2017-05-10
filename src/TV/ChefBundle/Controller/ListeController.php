@@ -7,8 +7,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-//use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-
 class ListeController extends Controller
 {
     public function indexAction()
@@ -41,7 +39,7 @@ class ListeController extends Controller
         
         $liste = $user->getListe();
         
-        if ($liste == null){
+        if ($liste === null){
             $liste = new Liste();
             $user->setListe($liste);
             
@@ -100,8 +98,6 @@ class ListeController extends Controller
         if($currentUser == $user || $this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
             
             $liste->removeIngredient($ingredient);
-            dump($liste);
-            die();
             $em->persist($liste);
             $em->flush();
             $request->getSession()->getFlashBag()->add('info', "L'ingrédient a bien été supprimé.");

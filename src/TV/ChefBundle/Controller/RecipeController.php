@@ -11,8 +11,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-//use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-
 class RecipeController extends Controller
 {
     public function indexAction($page)

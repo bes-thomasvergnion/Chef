@@ -2,9 +2,6 @@
 
 namespace TV\UserBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpFoundation\Request;
-use TV\UserBundle\Form\NoteUserType;
 use TV\UserBundle\Entity\Follow;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 

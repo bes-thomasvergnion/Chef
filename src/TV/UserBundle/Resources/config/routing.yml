@@ -81,4 +81,3 @@ tv_user_follow_add:
         _controller: TVUserBundle:Follow:add
     requirements:
         page: \d*
-    

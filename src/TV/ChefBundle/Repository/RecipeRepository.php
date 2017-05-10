@@ -19,36 +19,15 @@ class RecipeRepository extends \Doctrine\ORM\EntityRepository
             ->where('c.name LIKE :term')
             ->setParameter('term', '%'.$term.'%');
          
-        $arrayAss= $qb->getQuery()
-                   ->getArrayResult();
-         
-        // Transformer le tableau associatif en un tableau standard
+        $arrayAss= $qb->getQuery()->getArrayResult();     
+        
         $array = array();
         foreach($arrayAss as $data)
         {
             $array[] = $data['name'];
         }
      
-        return $array;
-        
-//        $qb = $this->createQueryBuilder('a')
-//            ->where('a.name LIKE :search')
-//            ->setParameter('search', '%' .$term. '%')
-//            ->orderBy('a.id', 'DESC')
-//            ->getQuery()
-//        ;
-//        $arrayAss= $qb->getQuery()
-//                    ->getArrayResult();
-//         
-//        // Transformer le tableau associatif en un tableau standard
-//        $array = array();
-//        foreach($arrayAss as $data)
-//        {
-//            $array[] = $data['name'];
-//        }
-//     
-//        return $array;
-        
+        return $array;      
     }
     
     public function getRecipes($page, $nbPerPage)
