@@ -1,0 +1,18 @@
+{% extends "TVChefBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Erreur {{ status_code }}
+{% endblock %}
+
+{% block chef_body %}
+    <section>
+
+        <h2>Oops! Il semble avoir eut une erreur {{ status_code }}</h2>
+
+        <h2>La page que vous recherchez n'existe pas.</h2>
+
+       <a id="btn-error" class="btn" href="{{ path('tv_chef_homepage') }}"><i class="fa fa-home" aria-hidden="true"></i> Retour à l'accueil</a>
+        
+    </section>
+
+{% endblock %}
