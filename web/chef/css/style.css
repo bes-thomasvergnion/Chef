@@ -71,6 +71,7 @@ a{
 section.no-padding{padding: 0;}
 .center{text-align: center;}
 .clearfix{clear: both;}
+#btn-error{margin-bottom: 55px;}
 
 /*********************************************************************************/
 /* Header                                                                        */
@@ -396,18 +397,19 @@ section .recipe .picture{width: 340px;}
     background-color: #eee;
     border-color: #ddd;
 }
-.pagination > .active > a,
-.pagination > .active > span,
-.pagination > .active > a:hover,
-.pagination > .active > span:hover,
-.pagination > .active > a:focus,
-.pagination > .active > span:focus {
+.pagination > .actived > a,
+.pagination > .actived > span,
+.pagination > .actived > a:hover,
+.pagination > .actived > span:hover,
+.pagination > .actived > a:focus,
+.pagination > .actived > span:focus {
     z-index: 3;
     color: #fff;
     cursor: default;
     background-color: #57CC23;
     border-color: #57CC23;
 }
+
 
 /*********************************************************************************/
 /* RECETTE                                                                       */
@@ -487,6 +489,14 @@ section .recipe .picture{width: 340px;}
 .buttons .btn{margin-right: 28px;}
 .buttons .btn.last{margin-right: 0}
 
+#delete-btn{
+    float: right;
+    margin-top: 5px;
+}
+#delete-btn:hover{
+    background-color: #99370B;
+}
+
 .ingredients{
     width: 900px;
 }
@@ -553,7 +563,7 @@ section .recipe .picture{width: 340px;}
     margin-left: 10px;
 }
 .btn.little.red{margin-left: 2px;}
-.btn.little.red:hover{background-color: #99370B;}
+.btn.red:hover{background-color: #99370B;}
 .btn.little.blue:hover{background-color: #3A42D4;}
 
 /*********************************************************************************/
@@ -564,9 +574,6 @@ section .recipe .picture{width: 340px;}
 }
 .cuistot h3{
     color: #173e25;
-}
-#cuistots a{
-    color: #292727;;
 }
 .polaroid.cuistot{
     width: 235px;
@@ -733,6 +740,11 @@ form .infos select{
 .btn-radio{
     margin-top: 20px;
 }
+.errors ul{
+    list-style: none;
+    padding: 0;
+    color: #99370B;
+}
 
 /* Ingredient form */
 .ingredient_form{
@@ -744,10 +756,12 @@ form .infos select{
     margin: 0 auto;
     
 }
+.ingredient_inputs{
+    margin-bottom: 50px;
+}
 .ingredient_input{
     width: 180px;
     float: left;
-    margin-bottom: 50px;
     text-align: center;
 }
 .ingredient_input.input_little{
@@ -830,6 +844,12 @@ form .infos select{
     width: 100%;
     height: 400px;
     margin-bottom: 30px;
+}
+
+/* DELETE */
+.delete-container{
+    padding: 20px 0;
+    text-align: center;
 }
 
 /*********************************************************************************/

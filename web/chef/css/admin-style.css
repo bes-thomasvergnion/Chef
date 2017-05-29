@@ -41,6 +41,10 @@ header h1{
     font-size: 2em;
     margin: 0;
 }
+.link-title{
+    color: #fff;
+    text-decoration: none;
+}
 
 /*********************************************************************************/
 /* Menu                                                                          */
@@ -93,7 +97,7 @@ table td{
     text-align: center;
 }
 table .picture{
-    width: 80px;
+    width: 40px;
 }
 table .actions{
     width: 120px;
