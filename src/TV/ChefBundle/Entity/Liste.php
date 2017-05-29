@@ -24,12 +24,12 @@ class Liste
     
     /**
      * @ORM\OneToOne(targetEntity="TV\UserBundle\Entity\User", inversedBy="liste", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
     private $user;
     
     /**
-     * @ORM\OneToMany(targetEntity="TV\ChefBundle\Entity\Ingredient", mappedBy="liste", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="TV\ChefBundle\Entity\Ingredient")
      * @ORM\JoinColumn(nullable=true)
      */
     private $ingredients;
@@ -78,9 +78,6 @@ class Liste
     public function addIngredient(Ingredient $ingredient)
     {
         $this->ingredients[] = $ingredient;
-        
-        $ingredient->setListe($this);
-        return($this);
     }
 
     public function removeIngredient(Ingredient $ingredient)

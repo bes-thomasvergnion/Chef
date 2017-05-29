@@ -21,6 +21,10 @@
                         {{ form_label(form.name, "Nom de la recette:", {'label_attr': {'class': ''}}) }}
                         {{ form_widget(form.name, {'attr': {'class': ''}}) }}
                     </div>
+                    
+                    <div class="errors">
+                        {{ form_errors(form.name) }}
+                    </div>
 
                     <img class="img-recipe-single" src="{{ asset('chef/images/default.jpg') }}" alt="default">
                     

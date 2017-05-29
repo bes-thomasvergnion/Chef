@@ -11,10 +11,25 @@ class AdminController extends Controller
     */
     public function indexAction()
     {
-        $titlePage = 'Tableau de bord';
+        $nbrRecipes = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('TVChefBundle:Recipe')
+            ->getNbrRecipes()
+        ;
+        
+        $nbrUsers = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('TVUserBundle:User')
+            ->getNbrUsers()
+        ;
+        
+        $currentUser = $this->container->get('security.token_storage')->getToken()->getUser();
+        $lastLogin = $currentUser->getLastLogin();
         
         return $this->render('TVUserBundle:Admin:index.html.twig', array(
-            'titlePage' => $titlePage,
+            'nbrRecipes' => $nbrRecipes,
+            'nbrUsers' => $nbrUsers,
+            'lastLogin' => $lastLogin
         ));
     }
     

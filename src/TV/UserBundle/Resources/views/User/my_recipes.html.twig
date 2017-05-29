@@ -8,7 +8,7 @@
 
     <section>
         <div class="container" id="recipes-container">
-            <h2 class="dancing">Mes recettes</h2>
+            <h2 class="dancing">{{user.username}} - Mes recettes</h2>
             
             {% for recipe in user.recipes %}
                 {% if count == 0 or count%3 == 0 %}<div class="row"> {% endif %}

@@ -3,6 +3,7 @@
 namespace TV\ChefBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Ingredient
@@ -25,13 +26,15 @@ class Ingredient
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\Length(min=3, minMessage="Le nom de l'ingrédient doit faire au moins {{ limit }} caractères.")
      */
     private $name;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="quantity", type="string", length=255)
+     * @ORM\Column(name="quantity", type="integer")
+     * @Assert\Type(type="integer", message="Veuillez entrer uniquement des nombres pour ce champ")
      */
     private $quantity;
     
@@ -46,12 +49,6 @@ class Ingredient
      * @ORM\JoinColumn(nullable=false)
      */
     private $recipe;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="TV\ChefBundle\Entity\Liste", inversedBy="ingredients")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $liste;
 
     
 
@@ -160,30 +157,5 @@ class Ingredient
     public function getTypequantity()
     {
         return $this->typequantity;
-    }
-    
-
-    /**
-     * Set liste
-     *
-     * @param \TV\ChefBundle\Entity\Liste $liste
-     *
-     * @return Ingredient
-     */
-    public function setListe(\TV\ChefBundle\Entity\Liste $liste)
-    {
-        $this->liste = $liste;
-
-        return $this;
-    }
-
-    /**
-     * Get liste
-     *
-     * @return \TV\ChefBundle\Entity\Liste
-     */
-    public function getListe()
-    {
-        return $this->liste;
     }
 }

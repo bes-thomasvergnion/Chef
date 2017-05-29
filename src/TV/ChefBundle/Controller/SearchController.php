@@ -21,18 +21,32 @@ class SearchController extends Controller
     
     public function selectAction(Request $request, $page)
     {       
-        $search = new Search();
+        $user = $request->getClientIp();
+        
+        if( !defined($page)){
+            $search = new Search();
+            $search->setIp($user);
+            $form = $this->createForm(SearchType::class, $search);
+            
+            if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($search);           
+                $em->flush();
+            }
+        }
 
-        $form = $this->createForm(SearchType::class, $search);
+        if ($page >= 1){
+            $search = $this->getDoctrine()
+                ->getManager()
+                ->getRepository('TVChefBundle:Search')
+                ->getSearch($user)
+            ;
+            $form = $this->createForm(SearchType::class, $search);
+        }
+
         $nbPerPage = 18;
         $count = 0;
-       
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($search);           
-            $em->flush();
-        }
-        
+
         $listRecipes = $this->getDoctrine()
             ->getManager()
             ->getRepository('TVChefBundle:Recipe')

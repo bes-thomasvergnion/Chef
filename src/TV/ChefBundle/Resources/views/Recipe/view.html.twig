@@ -7,6 +7,10 @@
 {% block chef_body %}
     <section class="recipe-single">
         <div class="container">
+            
+            {% if currentUser == recipe.author or is_granted('ROLE_ADMIN') %}
+                <a class="btn" id="delete-btn" href="{{ path('tv_chef_recipe_delete', {'id': recipe.id}) }}"><i class="fa fa-trash" aria-hidden="true"></i> Supprimer</a>
+            {% endif %}
             <h2>{{ recipe.name }}</h2>
             <img class="img-recipe-single" src="{% if recipe.image.webPath is defined %}{{ asset(recipe.image.webPath) }}{%else%}{{ asset('chef/images/default.jpg') }}{%endif%}" alt="{% if recipe.image.alt is defined %}{{ recipe.image.alt }}{%else%}Default{%endif%}">
             <div class="infos">
@@ -45,6 +49,16 @@
                     <a class="btn" href="{{ path('tv_chef_recipe_edit', {'id': recipe.id}) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modifer recette</a>
                 {% else %}
                     <a class="btn" href="{{ path('tv_chef_recipe_note', {'id': recipe.id}) }}"><i class="fa fa-star" aria-hidden="true"></i> Noter</a>
+                    
+                {% endif %}
+                
+                {% if currentUser.notebook is defined %}
+                {% if recipe in currentUser.notebook.recipes %}
+                        <a class="btn big btn-right" href="{{ path('tv_chef_notebook_delete', {'id': recipe.id}) }}"><i class="fa fa-book" aria-hidden="true"></i> Enlever du carnet</a>
+                    {% elseif currentUser != recipe.author %}
+                        <a class="btn big btn-right" href="{{ path('tv_chef_notebook_add', {'id': recipe.id}) }}"><i class="fa fa-book" aria-hidden="true"></i> Ajouter au carnet</a>
+                    {% endif %}
+                {% elseif currentUser != recipe.author %}
                     <a class="btn big btn-right" href="{{ path('tv_chef_notebook_add', {'id': recipe.id}) }}"><i class="fa fa-book" aria-hidden="true"></i> Ajouter au carnet</a>
                 {% endif %}
                 <a class="btn big" href="{{ path('tv_chef_liste_add', {'id': recipe.id}) }}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Liste de course</a>
@@ -102,7 +116,7 @@
                         {% if step.image.webPath is defined %}
                             <img class="img-step" src="{{ asset(step.image.webPath) }}" alt="{{ step.image.alt }}">
                         {% endif %}
-                        {% if step.video is not null %}<div class="clearfix"></div> <iframe src="{{ step.video }}" allowfullscreen></iframe> {% endif %}
+                        {% if step.video is not empty %}<div class="clearfix"></div> <iframe src="{{ step.video }}" allowfullscreen></iframe> {% endif %}
                         <p>{{ step.content }}</p>
                         <div class="clearfix"></div>
                     </div>

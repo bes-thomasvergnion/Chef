@@ -4,6 +4,7 @@ namespace TV\ChefBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Recipe
@@ -26,6 +27,8 @@ class Recipe
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\Length(min=10, minMessage="Le nom de l'étape doit faire au maximum {{ limit }} caractères.")
+     * @Assert\Type(type="string", message="Veuillez entrer uniquement des nombres pour ce champ")
      */
     private $name;
     
@@ -52,6 +55,7 @@ class Recipe
      * @var int
      *
      * @ORM\Column(name="nb_of_pers", type="integer")
+     * @Assert\Type(type="integer", message="Veuillez entrer uniquement des nombres pour ce champ")
      */
     private $nbOfPers;
 
@@ -59,6 +63,7 @@ class Recipe
      * @var int
      *
      * @ORM\Column(name="cooking_time", type="integer")
+     * @Assert\Type(type="integer", message="Veuillez entrer uniquement des nombres pour ce champ")
      */
     private $cookingTime;
 
@@ -66,6 +71,7 @@ class Recipe
      * @var int
      *
      * @ORM\Column(name="preparation_time", type="integer")
+     * @Assert\Type(type="integer", message="Veuillez entrer uniquement des nombres pour ce champ")
      */
     private $preparationTime;
 
@@ -73,12 +79,14 @@ class Recipe
      * @var int
      *
      * @ORM\Column(name="timeout", type="integer")
+     * @Assert\Type(type="integer", message="Veuillez entrer uniquement des nombres pour ce champ")
      */
     private $timeout;
     
     /**
      * @ORM\OneToOne(targetEntity="TV\ChefBundle\Entity\Image", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
+     * @Assert\Valid()
      */
     private $image;
     
@@ -86,6 +94,7 @@ class Recipe
      * @var integer
      *
      * @ORM\Column(name="star", type="integer", nullable=true)
+     * @Assert\Type(type="integer", message="Veuillez entrer uniquement des nombres pour ce champ")
      */
     private $star;
     

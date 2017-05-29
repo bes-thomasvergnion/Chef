@@ -20,25 +20,20 @@ class Search
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="value", type="string", length=255)
+     */
+    private $value;
     
     /**
-     * @ORM\ManyToOne(targetEntity="TV\ChefBundle\Entity\Type", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=true)
+     * @var string
+     *
+     * @ORM\Column(name="ip", type="string", length=255)
      */
-    private $type;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="TV\ChefBundle\Entity\Category", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $category;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="TV\ChefBundle\Entity\Locality", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $locality;
-    
+    private $ip;
 
 
     /**
@@ -49,6 +44,30 @@ class Search
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set value
+     *
+     * @param string $value
+     *
+     * @return Search
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
+    /**
+     * Get value
+     *
+     * @return string
+     */
+    public function getValue()
+    {
+        return $this->value;
     }
 }
 

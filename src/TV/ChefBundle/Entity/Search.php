@@ -27,6 +27,13 @@ class Search
      * @ORM\Column(name="value", type="string", length=255)
      */
     private $value;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ip", type="string", length=255, nullable=true)
+     */
+    private $ip;
 
 
     /**
@@ -62,5 +69,28 @@ class Search
     {
         return $this->value;
     }
-}
 
+    /**
+     * Set ip
+     *
+     * @param string $ip
+     *
+     * @return Search
+     */
+    public function setIp($ip)
+    {
+        $this->ip = $ip;
+
+        return $this;
+    }
+
+    /**
+     * Get ip
+     *
+     * @return string
+     */
+    public function getIp()
+    {
+        return $this->ip;
+    }
+}

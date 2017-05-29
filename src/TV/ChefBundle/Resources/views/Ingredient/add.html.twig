@@ -14,19 +14,29 @@
                     </div>
                     
                     <div class="ingredient_form">
-                        <div class="ingredient_input input_little">
-                            <p>{{ form_label(form.quantity, "Quantité: ", {'label_attr': {'class': ''}}) }}<p>
-                            {{ form_widget(form.quantity, {'attr': {'class': 'nbr'}}) }}
-                        </div>
+                        <div class="ingredient_inputs">
+                            <div class="ingredient_input input_little">
+                                <p>{{ form_label(form.quantity, "Quantité: ", {'label_attr': {'class': ''}}) }}<p>
+                                {{ form_widget(form.quantity, {'attr': {'class': 'nbr'}}) }}
+                            </div>
 
-                        <div class="ingredient_input">
-                            <p>{{ form_label(form.typequantity, "Type de Quantité: ", {'label_attr': {'class': ''}}) }}<p>
-                            {{ form_widget(form.typequantity, {'attr': {'class': ''}}) }}
-                        </div>
+                            <div class="ingredient_input">
+                                <p>{{ form_label(form.typequantity, "Type de Quantité: ", {'label_attr': {'class': ''}}) }}<p>
+                                {{ form_widget(form.typequantity, {'attr': {'class': ''}}) }}
+                            </div>
 
-                        <div class="ingredient_input input_big">
-                            <p>{{ form_label(form.name, "Nom: ", {'label_attr': {'class': ''}}) }}<p>
-                            {{ form_widget(form.name, {'attr': {'class': ''}}) }}
+                            <div class="ingredient_input input_big">
+                                <p>{{ form_label(form.name, "Nom: ", {'label_attr': {'class': ''}}) }}<p>
+                                {{ form_widget(form.name, {'attr': {'class': ''}}) }}
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                            <div class="errors">
+                                {{ form_errors(form.quantity) }}
+                                {{ form_errors(form.typequantity) }}
+                                {{ form_errors(form.name) }}
+                            </div>
                         </div>
                         
                         {{ form_widget(form.save, { 'label': 'Ajouter ingrédient', 'attr' : {'class': 'btn' }}) }}

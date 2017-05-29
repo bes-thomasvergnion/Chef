@@ -29,7 +29,7 @@ class Notebook
     
     /**
      * @ORM\OneToOne(targetEntity="TV\UserBundle\Entity\User", inversedBy="notebook", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
     private $user;
     

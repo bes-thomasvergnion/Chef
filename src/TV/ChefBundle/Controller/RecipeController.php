@@ -136,7 +136,7 @@ class RecipeController extends Controller
                 $em->remove($recipe);
                 $em->flush();
                 $request->getSession()->getFlashBag()->add('info', "La recette a bien été supprimée.");
-                return $this->redirectToRoute('tv_chef_homepage');
+                return $this->redirectToRoute('tv_user_my_recipes', array('id' => $currentUser->getId()));
             }
             return $this->render('TVChefBundle:Recipe:delete.html.twig', array(
                 'recipe' => $recipe,

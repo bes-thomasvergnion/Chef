@@ -10,4 +10,15 @@ namespace TV\ChefBundle\Repository;
  */
 class SearchRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getSearch($user)
+    {
+        $query = $this->createQueryBuilder('a')
+            ->where('a.ip = :user')
+            ->setParameter('user', $user)
+            ->orderBy('a.id', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+        ;
+        return $query->getSingleResult();
+    }
 }

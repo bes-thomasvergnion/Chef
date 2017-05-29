@@ -41,6 +41,13 @@ tv_user_note:
     requirements:
         id: \d+
         
+tv_user_bannish:
+    path: /bannish/user/{id}
+    defaults:
+        _controller: TVUserBundle:User:Bannish
+    requirements:
+        id: \d+
+        
 tv_admin_index:
     path: /admin
     defaults: 
@@ -79,5 +86,12 @@ tv_user_follow_add:
     path: /follow/user/{id}
     defaults:
         _controller: TVUserBundle:Follow:add
+    requirements:
+        page: \d*
+
+tv_user_follow_delete:
+    path: /follow/user/{id}/delete
+    defaults:
+        _controller: TVUserBundle:Follow:delete
     requirements:
         page: \d*

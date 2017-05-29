@@ -63,4 +63,12 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
         
         return $query->getResult();
     }
+    
+    public function getNbrUsers()
+    {
+        return $this->createQueryBuilder('a')
+                        ->select('COUNT(a)')
+                        ->getQuery()
+                        ->getSingleScalarResult();
+    }
 }

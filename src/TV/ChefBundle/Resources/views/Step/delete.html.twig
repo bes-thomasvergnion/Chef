@@ -7,14 +7,16 @@
 {% block chef_body %}
     <section class="recipe-single">
         <div class="container">
-            <h2>Supprimer une étape</h2>
-            <p>Etes-vous certain de vouloir supprimer cette étape ?</p>
+            <div class="delete-container">
+                <h2>Supprimer une étape</h2>
+                <p>Etes-vous certain de vouloir supprimer cette étape ?</p>
 
-            <form action="{{ path('tv_chef_step_delete', {'id': step.id,'id_recipe': recipe.id}) }}" method="post">
-                <a href="{{ path('tv_chef_recipe_view', {'id': step.recipe.id}) }}" class="btn">Retour à la recette</a>
-                <input type="submit" value="Supprimer" class="btn" />
-                {{ form_rest(form) }}
-            </form>         
+                <form action="{{ path('tv_chef_step_delete', {'id': step.id,'id_recipe': recipe.id}) }}" method="post">
+                    <a href="{{ path('tv_chef_recipe_view', {'id': step.recipe.id}) }}" class="btn">Retour à la recette</a>
+                    <input type="submit" value="Supprimer" class="btn" />
+                    {{ form_rest(form) }}
+                </form>
+            </div>
         </div>
         <div class="clearfix"></div>
     </section>

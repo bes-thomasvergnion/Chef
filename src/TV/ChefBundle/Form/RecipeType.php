@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class RecipeType extends AbstractType
@@ -60,10 +61,10 @@ class RecipeType extends AbstractType
                     },
                     'choice_label' => 'name',
                 ))
-                ->add('nbOfPers', TextType::class)
-                ->add('cookingTime', TextType::class)
-                ->add('preparationTime', TextType::class)
-                ->add('timeout', TextType::class)
+                ->add('nbOfPers', IntegerType::class)
+                ->add('cookingTime', IntegerType::class)
+                ->add('preparationTime', IntegerType::class)
+                ->add('timeout', IntegerType::class)
                 ->add('image', ImageType::class, array('required' => false))
                 
                 ->add('save', SubmitType::class, array(

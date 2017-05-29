@@ -9,33 +9,19 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class NotebookController extends Controller
 {
-    public function indexAction($page)
+    public function indexAction()
     {
-        if ($page < 1) {
-            throw $this->createNotFoundException("La page ".$page." n'existe pas.");
-        }
-        
         $count = 0;
-        $nbPerPage = 6;
-        
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         
         $listRecipes = $this->getDoctrine()
             ->getManager()
             ->getRepository('TVChefBundle:Recipe')
-            ->getRecipesOfNotebook($page, $nbPerPage, $user)
+            ->getRecipesOfNotebook($user)
         ;
-        
-        $nbPages = ceil(count($listRecipes)/$nbPerPage);
-        
-        if ($page > $nbPages) {
-            throw $this->createNotFoundException("La page ".$page." n'existe pas.");
-        }
         
         return $this->render('TVChefBundle:Recipe:notebook.html.twig', array(
             'listRecipes' => $listRecipes,
-            'nbPages' => $nbPages,
-            'page' => $page,
             'count' => $count
         ));
     }     
@@ -70,6 +56,25 @@ class NotebookController extends Controller
         $em->flush();
         
         return $this->redirectToRoute('tv_chef_notebook_index');       
+    }
+    
+    /**
+    * @Security("has_role('ROLE_USER')")
+    */
+    public function deleteAction($id, Request $request)
+    {
+        $currentUser = $this->container->get('security.token_storage')->getToken()->getUser();
+        
+        $notebook = $currentUser->getNotebook();
+        
+        $em = $this->getDoctrine()->getManager();
+        $recipe = $em->getRepository('TVChefBundle:Recipe')->find($id);
+        
+        $notebook->removeRecipe($recipe);
+        
+        $em->flush();
+        
+        return $this->redirectToRoute('tv_chef_notebook_index');
     }
     
 }

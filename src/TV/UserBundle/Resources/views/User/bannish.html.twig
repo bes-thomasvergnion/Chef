@@ -1,0 +1,23 @@
+{% extends "TVChefBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Bannir utilisateur
+{% endblock %}
+
+{% block chef_body %}
+    <section class="recipe-single">
+        <div class="container">
+            <div class="delete-container">
+                <h2>Bannir utlisateur</h2>
+                <p>Etes-vous certain de vouloir bannir cet utilisateur ?</p>
+
+                <form action="{{ path('tv_user_bannish', {'id': user.id}) }}" method="post">
+                    <a href="{{ path('tv_admin_users') }}" class="btn">Retour</a>
+                    <input type="submit" value="Bannir" class="btn" />
+                    {{ form_rest(form) }}
+                </form>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </section>
+{% endblock %}

@@ -52,7 +52,12 @@ class ListeController extends Controller
             $liste->addIngredient($ingredient);
         }
         
-        $em->flush();
+        $am = $this->getDoctrine()->getManager();
+        $am->persist($liste);
+//        dump($liste);
+//        die();
+        
+        $am->flush();
         
         return $this->redirectToRoute('tv_chef_liste_index');       
     }

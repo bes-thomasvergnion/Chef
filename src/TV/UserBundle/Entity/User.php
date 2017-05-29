@@ -72,7 +72,7 @@ class User extends BaseUser
     private $notebook;
     
     /**
-     * @ORM\OneToOne(targetEntity="TV\ChefBundle\Entity\Liste", mappedBy="user")
+     * @ORM\OneToOne(targetEntity="TV\ChefBundle\Entity\Liste", mappedBy="user", cascade={"remove"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $liste;
@@ -93,10 +93,10 @@ class User extends BaseUser
     
     public function __construct()
     {
-      $this->recipes = new ArrayCollection();
-      $this->notes = new ArrayCollection();
-      $this->followers = new ArrayCollection();
-      $this->followeds = new ArrayCollection();
+        $this->recipes = new ArrayCollection();
+        $this->notes = new ArrayCollection();
+        $this->followers = new ArrayCollection();
+        $this->followeds = new ArrayCollection();
     }
 
     /**

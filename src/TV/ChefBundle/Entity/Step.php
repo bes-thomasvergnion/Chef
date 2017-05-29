@@ -3,6 +3,7 @@
 namespace TV\ChefBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Step
@@ -28,16 +29,10 @@ class Step
     private $recipe;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="number", type="integer", nullable=true)
-     */
-    private $number;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, nullable=true)
+     * @Assert\Length(max=100, maxMessage="Le nom de l'étape doit faire au maximum {{ limit }} caractères.")
      */
     private $name;
 
@@ -45,12 +40,14 @@ class Step
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Assert\Length(min=10, minMessage="Le contenu d'une étape doit faire au moins {{ limit }} caractères.")
      */
     private $content;
     
     /**
      * @ORM\OneToOne(targetEntity="TV\ChefBundle\Entity\Image", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
+     * @Assert\Valid()
      */
     private $image;
 
@@ -58,6 +55,7 @@ class Step
      * @var string
      *
      * @ORM\Column(name="video", type="string", length=255, nullable=true)
+     * @Assert\Url()
      */
     private $video;
 
@@ -101,30 +99,6 @@ class Step
     public function getRecipe()
     {
         return $this->recipe;
-    }
-
-    /**
-     * Set number
-     *
-     * @param integer $number
-     *
-     * @return Step
-     */
-    public function setNumber($number)
-    {
-        $this->number = $number;
-
-        return $this;
-    }
-
-    /**
-     * Get number
-     *
-     * @return int
-     */
-    public function getNumber()
-    {
-        return $this->number;
     }
 
     /**

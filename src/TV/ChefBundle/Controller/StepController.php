@@ -38,6 +38,10 @@ class StepController extends Controller
                 $video_preg = preg_replace('#watch\?v=#', "embed/", $video);
                 $step->setVideo($video_preg);
                 
+                if(!empty($video)){
+                    $step->setImage(NULL);
+                }
+                
                 $em->flush();
                 $request->getSession()->getFlashBag()->add('notice', 'Recette bien modifiée.');
                 return $this->redirectToRoute('tv_chef_recipe_view', array('id' => $recipe->getId()));

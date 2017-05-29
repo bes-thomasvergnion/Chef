@@ -1,5 +1,8 @@
 {% extends "TVUserBundle::layout-admin.html.twig" %}
 {% block body %}
-    
+    <h2>Tableau de bord</h2>
+    <p>Nombre de recettes sur le site: {{ nbrRecipes }}</p>
+    <p>Nombre d'utilisateurs sur le site: {{ nbrUsers }}</p>
+    <p>Dernière connexion: {{ lastLogin|date('d-m-Y - H:i:s') }}</p>
 {% endblock %}
 

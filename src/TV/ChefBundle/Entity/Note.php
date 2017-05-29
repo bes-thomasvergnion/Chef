@@ -36,7 +36,7 @@ class Note
     
     /**
      * @ORM\ManyToOne(targetEntity="TV\UserBundle\Entity\User", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $author;
 

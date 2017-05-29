@@ -186,7 +186,7 @@ class RecipeRepository extends \Doctrine\ORM\EntityRepository
         return $query->getSingleResult();
     }
     
-    public function getRecipesOfNotebook($page, $nbPerPage, $user)
+    public function getRecipesOfNotebook($user)
     {
         $query = $this->createQueryBuilder('a')
             ->leftJoin('a.notebooks', 'c')
@@ -197,11 +197,15 @@ class RecipeRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
         ;
         
-        $query
-            ->setFirstResult(($page-1) * $nbPerPage)
-            ->setMaxResults($nbPerPage)
-          ;
-        return new Paginator($query, true);
+        return $query->getResult();
+    }
+    
+    public function getNbrRecipes()
+    {
+        return $this->createQueryBuilder('a')
+                        ->select('COUNT(a)')
+                        ->getQuery()
+                        ->getSingleScalarResult();
     }
     
 }

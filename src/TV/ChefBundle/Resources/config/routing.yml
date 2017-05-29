@@ -128,6 +128,13 @@ tv_chef_notebook_add:
     requirements:
         id: \d+
         
+tv_chef_notebook_delete:
+    path: /recipe/{id}/notebook/delete
+    defaults:
+        _controller: TVChefBundle:Notebook:delete
+    requirements:
+        id: \d+
+        
 tv_chef_liste_index:
     path: recipe/liste/
     defaults:

@@ -17,12 +17,15 @@
             <div class="connexion">
                 <p>{{ app.user.username }}</p>
             </div>
-            <img id="logo" src="{{ asset('chef/images/logo.png') }}" alt="Logo" />
-            <h1>Chef <span>@</span> Home</h1>
+            <a class="link-title" href="{{ path('tv_admin_index') }}">
+                <img id="logo" src="{{ asset('chef/images/logo.png') }}" alt="Logo" />
+                <h1>Chef <span>@</span> Home</h1>
+            </a>
         </header>
         
         <nav>
             <ul>
+                <li><a href="{{ path('tv_admin_index') }}"><i class="fa fa-tachometer" aria-hidden="true"></i> Tableau de bord</a></li>
                 <li><a href="{{ path('tv_chef_recipe_add') }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Ajouter Recette</a></li>
                 <li><a href="{{ path('tv_admin_recipe_admin') }}"><i class="fa fa-book" aria-hidden="true"></i> Recettes ADMIN</a></li>
                 <li><a href="{{ path('tv_admin_recipe_users') }}"><i class="fa fa-book" aria-hidden="true"></i> Recettes Utilisateurs</a></li>

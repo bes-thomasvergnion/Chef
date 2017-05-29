@@ -19,7 +19,7 @@ class UserController extends Controller
         
         $titlePage = 'Les Cuistots';
         $count = 0;
-        $nbPerPage = 15;
+        $nbPerPage = 18;
         
         $listUsers = $this->getDoctrine()
             ->getManager()
@@ -107,20 +107,29 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('TVUserBundle:User')->find($id);
+        
+        $currentUser = $this->container->get('security.token_storage')->getToken()->getUser();
+        
         if (null === $user) {
             throw new NotFoundHttpException("L'utilisateur d'id ".$id." n'existe pas.");
         }
-        $form = $this->get('form.factory')->create();
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            $em->remove($user);
-            $em->flush();
-            $request->getSession()->getFlashBag()->add('info', "L'utilisateur a bien été supprimée.");
-            return $this->redirectToRoute('tv_chef_homepage');
+        
+        if($currentUser == $user){
+            $form = $this->get('form.factory')->create();
+            if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+                $em->remove($user);
+                $em->flush();
+                $request->getSession()->getFlashBag()->add('info', "L'utilisateur a bien été supprimée.");
+                return $this->redirectToRoute('tv_chef_homepage');
+            }
+            return $this->render('TVUserBundle:User:delete.html.twig', array(
+                'user' => $user,
+                'form'   => $form->createView(),
+            ));
         }
-        return $this->render('TVUserBundle:User:delete.html.twig', array(
-            'user' => $user,
-            'form'   => $form->createView(),
-        ));
+        else{
+            return $this->redirectToRoute('tv_user_view', array('id' => $user->getId()));
+        }
     }
        
     public function myRecipesAction($id)
@@ -143,14 +152,14 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager(); 
         $user = $em->getRepository('TVUserBundle:User')->find($id);
         
-        $hisadverts = $em->getRepository('TVFindyourbandBundle:Advert')->findByAuthor($user);
+        $hisrecipes = $em->getRepository('TVChefBundle:Recipe')->findByAuthor($user);
         
         $form = $this->get('form.factory')->create();
         
         
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            foreach($hisadverts as $hisadvert){
-                $em->remove($hisadvert);
+            foreach($hisrecipes as $hisrecipe){
+                $em->remove($hisrecipe);
             }
             $user->setEnabled(false);
             $em->flush();

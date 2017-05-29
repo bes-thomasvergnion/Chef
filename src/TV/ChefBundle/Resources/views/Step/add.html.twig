@@ -13,9 +13,17 @@
                     <div class="error">
                         {{ form_errors(form) }}
                     </div>
+                    
+                    <div class="errors">
+                        {{ form_errors(form.name) }}
+                        {{ form_errors(form.video) }}
+                        {{ form_errors(form.image) }}
+                    </div>
+
                     <div class="form-name">
                         {{ form_label(form.name, "Nom: ", {'label_attr': {'class': ''}}) }}
                         {{ form_widget(form.name, {'attr': {'class': ''}}) }}
+                        
                     </div>
                     
                     <p>Vous pouvez rajouter une image ou une vidéo à votre étape:

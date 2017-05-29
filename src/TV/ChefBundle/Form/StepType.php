@@ -19,7 +19,8 @@ class StepType extends AbstractType
     {
         $builder
                 ->add('name', TextType::class, array(
-                    'label'=> 'Nom: '
+                    'label'=> 'Nom: ',
+                    'required'  => false
                 ))
                 ->add('content', TextareaType::class, array(
                     'label'=> 'Contenu: ',
@@ -27,7 +28,10 @@ class StepType extends AbstractType
                     'attr'=> array('class'=>'content-step')
                 ))
                 ->add('image', ImageType::class, array('required' => false))
-                ->add('video', TextType::class, array('required'  => false,))
+                ->add('video', TextType::class, array(
+                    'required'  => false,
+                    'attr' => array('placeholder' => 'https://www.youtube.com/watch?v=xxxxxxxx')
+                ))
                 ->add('timer', TimeType::class, array(
                     'required'  => false,
                     'data' => 0,

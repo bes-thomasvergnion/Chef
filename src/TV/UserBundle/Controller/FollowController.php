@@ -44,9 +44,52 @@ class FollowController extends Controller
         $follow->setFollower($follower);
         $follow->setFollowed($followed);
         
-        $em->persist($follow);
-        $em->flush();
+        $listfollowDb = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('TVUserBundle:Follow')
+            ->findAll()
+        ;
         
-         return $this->redirectToRoute('tv_chef_homepage');
+        $verified = false;
+        
+        foreach($listfollowDb as $followDb){
+            $followerDb = $followDb->getFollower();
+            $followedDb = $followDb->getFollowed();
+            
+            if($followerDb == $follower && $followedDb == $followed){
+                $verified = true;
+            }
+        }
+        
+        if ($verified == false){
+            $em->persist($follow);
+            $em->flush();
+        }
+        
+        return $this->redirectToRoute('tv_user_follow_index');
+    }
+    
+    /**
+    * @Security("has_role('ROLE_USER')")
+    */
+    public function deleteAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $followed = $em->getRepository('TVUserBundle:User')->find($id);
+        
+        $follower = $this->container->get('security.token_storage')->getToken()->getUser();
+        
+        $follow = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('TVUserBundle:Follow')
+            ->getFollow($followed, $follower)
+        ;
+        
+//        dump($follow);
+//        die();
+        
+        $em->remove($follow);
+        $em->flush();
+        return $this->redirectToRoute('tv_user_follow_index');
     }
 }
